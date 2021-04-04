@@ -25,7 +25,7 @@ class MainMap extends Phaser.Scene {
       font: "50px Arial",
       fill: '#000'
       })
-      .setInteractive() 
+      .setInteractive()  
       .on('pointerdown', () => this.updateToLevelTwoScene());
 
     const levelThreeButton = this.add.text(config.width/2, config.height/5, 'Level Three', {

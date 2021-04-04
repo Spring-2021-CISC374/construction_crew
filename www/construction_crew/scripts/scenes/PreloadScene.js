@@ -1,11 +1,12 @@
-class Scene1 extends Phaser.Scene {
+class PreloadScene extends Phaser.Scene {
   constructor() {
-    super("bootGame");
+    super("PreloadScene");
   }
 
   preload(){
-    this.load.image("background", "assets/images/background.png");
-    //
+    this.load.image("background", "assets/images/construction.jpg");
+    this.load.image("main_map", "assets/images/main_map.jpg");
+
     this.load.spritesheet("ship", "assets/spritesheets/ship.png",{
       frameWidth: 16,
       frameHeight: 16
@@ -32,6 +33,6 @@ class Scene1 extends Phaser.Scene {
 
   create() {
     this.add.text(20, 20, "Loading game...");
-    this.scene.start("playGame");
+    this.scene.start("MainMenu");
   }
 }

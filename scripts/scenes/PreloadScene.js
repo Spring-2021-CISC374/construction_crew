@@ -7,6 +7,13 @@ class PreloadScene extends Phaser.Scene {
     this.load.image("background", "assets/images/construction.jpg");
     this.load.image("main_map", "assets/images/main_map.jpg");
 
+    this.load.image("concrete", "assets/images/concrete.png");
+    this.load.image("electritian", "assets/images/electritian.png");
+    this.load.image("framers", "assets/images/framers.png");
+    this.load.image("painter", "assets/images/painter.png");
+    this.load.image("plumer", "assets/images/plumer.png");
+    this.load.image("roofer", "assets/images/roofer.png");
+
     this.load.spritesheet("ship", "assets/spritesheets/ship.png",{
       frameWidth: 16,
       frameHeight: 16

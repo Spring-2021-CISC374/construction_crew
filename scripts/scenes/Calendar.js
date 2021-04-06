@@ -25,9 +25,17 @@ class Calendar extends Phaser.Scene {
     }, this);
 
     this.input.on('drop', function (pointer, gameObject, dropZone) {
+      console.log(dropZone.getData('item'));
+      if (dropZone.getData('item') == 1) {
+        gameObject.x = gameObject.getData("x");
+        gameObject.y = gameObject.getData("y");
+      }
+      else {
+        gameObject.x = dropZone.x;
+        gameObject.y = dropZone.y;
+        dropZone.setData('item', 1);
+      }
 
-      gameObject.x = dropZone.x;
-      gameObject.y = dropZone.y;
 
       //gameObject.input.enabled = false;
 

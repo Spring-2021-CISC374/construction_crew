@@ -35,6 +35,13 @@ class MainMenu extends Phaser.Scene {
       .setInteractive()
       .on('pointerdown', () => this.updateFreePlayScene());
 
+      const calendarButton = this.add.text(config.width/3, config.height/3 + 400, 'Calendar', {
+        font: "70px Arial",
+        fill: '#0f0'
+        })
+        .setInteractive()
+        .on('pointerdown', () => this.updateCalendarScene());
+
   }
 
   updateTutorialScene() {
@@ -45,6 +52,9 @@ class MainMenu extends Phaser.Scene {
   }
   updateFreePlayScene() {
     this.scene.start("FreePlay");
+  }
+  updateCalendarScene() {
+    this.scene.start("Calendar");
   }
 
 

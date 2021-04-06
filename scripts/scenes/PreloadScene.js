@@ -6,7 +6,7 @@ class PreloadScene extends Phaser.Scene {
   preload(){
     this.load.image("background", "assets/images/construction.jpg");
     this.load.image("main_map", "assets/images/main_map.jpg");
-
+    this.load.image("box", "assets/images/box.png");
     this.load.image("concrete", "assets/images/concrete.png");
     this.load.image("electritian", "assets/images/electritian.png");
     this.load.image("framers", "assets/images/framers.png");
@@ -34,6 +34,11 @@ class PreloadScene extends Phaser.Scene {
     this.load.spritesheet("power-up", "assets/spritesheets/power-up.png",{
       frameWidth: 16,
       frameHeight: 16
+    });
+
+    this.load.spritesheet("confetti", "assets/spritesheets/Confetti.png",{
+      frameWidth: 1000,
+      frameHeight: 1000
     });
 
   }

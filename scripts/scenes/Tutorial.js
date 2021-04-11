@@ -4,8 +4,20 @@ class Tutorial extends Phaser.Scene {
   }
 
   create() {
-    //this.background = this.add.image(0, 0, "background").setOrigin(0).setScale(7);
+    this.build = this.add.sprite(config.width / 2 - 100, config.height / 2, "build");
 
+    this.anims.create({
+      key: "build_anim",
+      frames: this.anims.generateFrameNumbers("build"),
+      frameRate: 2,
+      repeat: 0
+    });
+
+    this.build.scale = 4;
+
+    this.build.play("build_anim");
+
+    /*
     this.add.text(config.width/2.75, config.height/25, "Construction Crew", {
       font: "50px Arial",
       fill: "black"
@@ -32,7 +44,6 @@ class Tutorial extends Phaser.Scene {
     });
 
     const framer = this.add.image(config.width/2 - 275, config.height / 2, "framers");
-    framer.scale = 0.4;
 
     this.add.text(config.width/2 - 325, config.height / 2 + 75, "framer", {
       font: "20px Arial",
@@ -61,7 +72,7 @@ class Tutorial extends Phaser.Scene {
     this.add.text(config.width/2 + 475, config.height / 2 + 75, "painter", {
       font: "20px Arial",
       fill: "black"
-    });
+    }); */
 
     const backButton = this.add.text(config.width/2.5, config.height - 100, 'Main Menu!', {
       font: "50px Arial",

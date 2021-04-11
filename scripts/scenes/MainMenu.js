@@ -41,7 +41,13 @@ class MainMenu extends Phaser.Scene {
         })
         .setInteractive()
         .on('pointerdown', () => this.updateCalendarScene());
-
+    //test for going to wrong page
+    /*const WrongPageButton = this.add.text(config.width/3, config.height/3 - 100, 'Wrong Page', {
+      font: "70px Arial",
+      fill: '#0f0'
+      })
+      .setInteractive()
+      .on('pointerdown', () => this.updateWrongPage());*/
   }
 
   updateTutorialScene() {
@@ -56,6 +62,10 @@ class MainMenu extends Phaser.Scene {
   updateCalendarScene() {
     this.scene.start("Calendar");
   }
+  updateWrongPage(){
+    this.scene.start("WrongPage");
+  }
+
 
 
 }

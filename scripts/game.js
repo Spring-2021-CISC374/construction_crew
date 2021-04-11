@@ -9,7 +9,7 @@ var config = {
   backgroundColor: 0xffffff,
   scene: [PreloadScene, MainMenu, Tutorial, Calendar, MainMap,
           LevelOne, LevelTwo, LevelThree,
-          FreePlay],
+          FreePlay, WrongPage],
   pixelArt: true,
   score: 100,
   size: 1,

@@ -5,6 +5,7 @@ class Build extends Phaser.Scene {
 
     init (data){
         this.correct = data.message;
+        this.level = data.level;
     }
   
     create() {
@@ -35,7 +36,7 @@ class Build extends Phaser.Scene {
 
             this.wrong = this.add.image(config.width / 3, config.height / 2, "wrong");
 
-            const message = this.add.text(config.width - 700, config.height / 2 - 100, 'Incorrect!\nPlease try again!', style);
+            const message = this.add.text(config.width - 700, config.height / 2 - 100, 'Incorrect!\nPlease try again!\n', style);
 
             const backButton = this.add.text(config.width - 700, config.height / 2 + 100, 'Try Again', style)
             .setInteractive()
@@ -49,7 +50,8 @@ class Build extends Phaser.Scene {
     }
 
     updateScene(){
-        this.scene.start("LevelOne");
+        const lev = this.level;
+        this.scene.start(lev);
     }
 
     

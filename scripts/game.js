@@ -7,7 +7,7 @@ var config = {
   width: gameWidth,
   height: gameHeight,
   backgroundColor: 0xffffff,
-  scene: [PreloadScene, MainMenu, Tutorial, Calendar, MainMap,
+  scene: [PreloadScene, MainMenu, Tutorial, Calendar, Score, MainMap,
           LevelOne, LevelTwo, LevelThree,
           FreePlay],
   pixelArt: true,

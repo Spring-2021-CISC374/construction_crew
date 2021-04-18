@@ -2,11 +2,15 @@ class Build extends Phaser.Scene {
     constructor() {
       super("Build");
     }
+
+    init (data){
+        this.correct = data.message;
+    }
   
     create() {
         this.background = this.add.image(0, -650, "build_background").setOrigin(0);
 
-        const correct = true;
+        const correct = this.correct;
 
         var style = { font: "50px Arial", fill: "black", boundsAlignH: "center", boundsAlignV: "middle"};
 

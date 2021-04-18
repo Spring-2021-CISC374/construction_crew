@@ -4,8 +4,14 @@ class PreloadScene extends Phaser.Scene {
   }
 
   preload(){
-    this.load.image("background", "assets/images/construction.jpg");
+    this.load.image("background", "assets/images/construction_tape.jpg");
     this.load.image("main_map", "assets/images/main_map.jpg");
+    this.load.image("button_tape", "assets/images/button_tape.jpg");
+    this.load.image("tutorial_button", "assets/images/tutorial_button.jpg");
+    this.load.image("start_game_button", "assets/images/start_game_button.jpg");
+    this.load.image("free_play_button", "assets/images/free_play_button.jpg");
+    this.load.image("blue_print", "assets/images/blue_print.jpg");
+    this.load.image("main_menu_button", "assets/images/main_menu_button.jpg");
 
     this.load.image("concrete", "assets/images/concrete.png");
     this.load.image("electritian", "assets/images/electritian.png");
@@ -13,6 +19,13 @@ class PreloadScene extends Phaser.Scene {
     this.load.image("painter", "assets/images/painter.png");
     this.load.image("plumer", "assets/images/plumer.png");
     this.load.image("roofer", "assets/images/roofer.png");
+    this.load.image("wrong", "assets/images/wrong.png");
+    this.load.image("build_background", "assets/images/build_background.png");
+
+    this.load.spritesheet("building", "assets/spritesheets/animation_v3.png", {
+      frameWidth: 400,
+      frameHeight: 400
+    });
 
     this.load.spritesheet("ship", "assets/spritesheets/ship.png",{
       frameWidth: 16,

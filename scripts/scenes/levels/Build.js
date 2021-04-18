@@ -7,7 +7,7 @@ class Build extends Phaser.Scene {
         this.correct = data.message;
         this.level = data.level;
     }
-  
+
     create() {
         this.background = this.add.image(0, -650, "build_background").setOrigin(0);
 
@@ -28,9 +28,8 @@ class Build extends Phaser.Scene {
 
             const message = this.add.text(config.width - 700, config.height / 2 - 100, 'Congradulations!\nYou did it!', style);
 
-            const backButton = this.add.text(config.width - 700, config.height / 2 + 100, 'Main Map!', style)
-            .setInteractive({ useHandCursor: true })
-            .on('pointerdown', () => this.updateToMainScene());
+            this.createCorrectPageButton()
+
 
         }else{
 
@@ -38,13 +37,56 @@ class Build extends Phaser.Scene {
 
             const message = this.add.text(config.width - 700, config.height / 2 - 100, 'Incorrect!\nPlease try again!\n', style);
 
+            this.createTryAgainButton()
             const backButton = this.add.text(config.width - 700, config.height / 2 + 100, 'Try Again', style)
             .setInteractive({ useHandCursor: true })
             .on('pointerdown', () => this.updateScene());
         }
-        
+
     }
-  
+
+    createCorrectPageButton() {
+      var bg = this.add.image(0, 0, "back_to_map");
+      var text = this.add.text(0, 0, "");
+
+      var container = this.add.container(20, 10, [ bg, text ]);
+
+      container.setSize(bg.width, bg.height);
+      container.setPosition(config.width - 500, config.height / 2 + 200);
+      container.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.updateToMainScene());
+
+      //this doesn't entirely work yet
+      container.on('pointerover', function () {
+        bg.setTint(0xffffff);
+      });
+
+      container.on('pointerout', function () {
+        bg.clearTint();
+      });
+    }
+
+    createTryAgainButton() {
+      var bg = this.add.image(0, 0, "try_again");
+      var text = this.add.text(0, 0, "");
+
+      var container = this.add.container(20, 10, [ bg, text ]);
+
+      container.setSize(bg.width, bg.height);
+      container.setPosition(config.width - 500, config.height / 2 + 200);
+      container.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.updateScene());
+
+      //this doesn't entirely work yet
+      container.on('pointerover', function () {
+        bg.setTint(0xffffff);
+      });
+
+      container.on('pointerout', function () {
+        bg.clearTint();
+      });
+    }
+
+
+
     updateToMainScene() {
         this.scene.start("MainMap");
     }
@@ -54,6 +96,5 @@ class Build extends Phaser.Scene {
         this.scene.start(lev);
     }
 
-    
+
 }
-  

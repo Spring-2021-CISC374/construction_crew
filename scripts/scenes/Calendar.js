@@ -22,6 +22,12 @@ class Calendar extends Phaser.Scene {
       })
       .setInteractive({ useHandCursor: true })
       .on("pointerdown", () => this.updateScene());
+    this.add.text(200, config.height - 150, "submit", {
+      font: "50px Arial",
+      fill: "#6cf"
+      })
+      .setInteractive({ useHandCursor: true })
+      .on("pointerdown", () => this.scene.start('Score', this.get_data()));
     this.gen_list(3);
     this.gen_calendar(graphics, 5);
     this.input.on("dragstart", function (pointer, gameObject) {
@@ -80,6 +86,7 @@ class Calendar extends Phaser.Scene {
   }
   clean_zone(zoneid){
     this.arr[zoneid].setData('item',0);
+    this.arr[zoneid].setData('jobid',-1)
   }
   gen_list(num) {
     var startx = 100;
@@ -103,6 +110,7 @@ class Calendar extends Phaser.Scene {
     }
   }
   gen_calendar(graphics, y) {
+    var week=['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     var startx = config.width / 3 + 100;
     var endx = config.width - 100;
     var starty = 100;
@@ -110,13 +118,29 @@ class Calendar extends Phaser.Scene {
     var width = (endx - startx) / 7;
     var height = (endy - starty) / y;
     //this.add.grid(startx, starty, endx - startx, endy - starty, width, height).setOutlineStyle(0xfff).setOrigin(0, 0);
+    for (var i = 0; i < 7; i++) {
+      var zone = this.add.text(startx + i * width +10, 50,week[i],{
+        font: "25px Arial",
+        fill: "#6cf"
+      });
+    }
     for (var j = 0; j < y; j++) {
       for (var i = 0; i < 7; i++) {
         var zone = this.add.zone(startx + i * width, j * height + starty, width, height).setRectangleDropZone(width, height);
         graphics.strokeRect(startx + i * width, j * height + starty, width, height);
         zone.setData('zoneid',j*7+i)
+        zone.setData('jobid',-1);
         this.arr.push(zone);
       }
     }
+  }
+  get_data(){
+    var data={};
+    this.arr.forEach(element => {
+      if(element.getData('jobid')!=-1){
+        data[element.getData('zoneid')] = element.getData('jobid');
+      }
+    });
+    return data;
   }
 }

@@ -29,7 +29,7 @@ class MainMenu extends Phaser.Scene {
 
       container.setSize(bg.width, bg.height);
       container.setPosition(config.width/4, config.height/2 + 150);
-      container.setInteractive().on('pointerdown', () => this.updateTutorialScene());
+      container.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.updateTutorialScene());
 
       //this doesn't entirely work yet
       container.on('pointerover', function () {
@@ -49,7 +49,7 @@ class MainMenu extends Phaser.Scene {
 
       container.setSize(bg.width, bg.height);
       container.setPosition(config.width/2, config.height/2 + 100);
-      container.setInteractive().on('pointerdown', () => this.updateMainMapScene());
+      container.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.updateMainMapScene());
 
       //this doesn't entirely work yet
       container.on('pointerover', function () {
@@ -69,7 +69,7 @@ class MainMenu extends Phaser.Scene {
 
       container.setSize(bg.width, bg.height);
       container.setPosition(config.width/4*3, config.height/2 + 150);
-      container.setInteractive().on('pointerdown', () => this.updateFreePlayScene());
+      container.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.updateFreePlayScene());
 
       //this doesn't entirely work yet
       this.input.on('pointerover',function(pointer){

@@ -12,7 +12,7 @@ class LevelTwo extends Phaser.Scene {
       font: "50px Arial",
       fill: '#0f0'
       })
-      .setInteractive()
+      .setInteractive({ useHandCursor: true })
       .on('pointerdown', () => this.updateScene());
   }
 

@@ -29,7 +29,7 @@ class Build extends Phaser.Scene {
             const message = this.add.text(config.width - 700, config.height / 2 - 100, 'Congradulations!\nYou did it!', style);
 
             const backButton = this.add.text(config.width - 700, config.height / 2 + 100, 'Main Map!', style)
-            .setInteractive()
+            .setInteractive({ useHandCursor: true })
             .on('pointerdown', () => this.updateToMainScene());
 
         }else{
@@ -39,7 +39,7 @@ class Build extends Phaser.Scene {
             const message = this.add.text(config.width - 700, config.height / 2 - 100, 'Incorrect!\nPlease try again!\n', style);
 
             const backButton = this.add.text(config.width - 700, config.height / 2 + 100, 'Try Again', style)
-            .setInteractive()
+            .setInteractive({ useHandCursor: true })
             .on('pointerdown', () => this.updateScene());
         }
         

@@ -65,7 +65,7 @@ class Tutorial extends Phaser.Scene {
       font: "50px Arial",
       fill: "black"
       })
-      .setInteractive()
+      .setInteractive({ useHandCursor: true })
       .on('pointerdown', () => this.updateScene()
     );
     

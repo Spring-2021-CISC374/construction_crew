@@ -29,7 +29,7 @@ class MainMap extends Phaser.Scene {
       var container = this.add.container(15, 10, [ bg, text ]);
       container.setSize(bg.width, bg.height);
       container.setPosition(config.width/2, config.height - 50);
-      container.setInteractive().on('pointerdown', () => this.updateToMainScene());
+      container.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.updateToMainScene());
 
       //this doesn't entirely work yet
       container.on('pointerover', function () {
@@ -49,7 +49,7 @@ class MainMap extends Phaser.Scene {
       fill: "#000000",
       align: "center"
     });
-    sprite.setInteractive().on('pointerdown', () => this.updateToLevelOneScene());
+    sprite.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.updateToLevelOneScene());
   }
 
   createLevelTwoButton() {
@@ -59,7 +59,7 @@ class MainMap extends Phaser.Scene {
       fill: "#000000",
       align: "center"
     });
-    sprite.setInteractive().on('pointerdown', () => this.updateToLevelTwoScene());
+    sprite.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.updateToLevelTwoScene());
   }
 
   createLevelThreeButton() {
@@ -69,7 +69,7 @@ class MainMap extends Phaser.Scene {
       fill: "#000000",
       align: "center"
     });
-    sprite.setInteractive().on('pointerdown', () => this.updateToLevelThreeScene());
+    sprite.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.updateToLevelThreeScene());
   }
 
   updateToMainScene() {

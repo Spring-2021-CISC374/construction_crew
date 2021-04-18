@@ -4,6 +4,7 @@ class LevelOne extends Phaser.Scene {
   }
 
   create() {
+
     const menuButton = this.add.text(config.width/3, config.height/3 + 100, 'Menu', {
       font: "70px Arial",
       fill: '#0f0'
@@ -16,14 +17,14 @@ class LevelOne extends Phaser.Scene {
       fill: '#0f0'
       })
       .setInteractive()
-      .on('pointerdown', () => this.updateBuildScene());
+      .on('pointerdown', () => this.updateToBuildScene());
   }
 
   updateToMainMapScene() {
     this.scene.start("MainMap");
   }
 
-  updateBuildScene() {
+  updateToBuildScene() {
     this.scene.start("Build");
   }
 }

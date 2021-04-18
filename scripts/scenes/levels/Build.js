@@ -4,23 +4,22 @@ class Build extends Phaser.Scene {
     }
   
     create() {
-        /*
-        this.background = this.add.image(0, 0, "build_background").setOrigin(0).setScale(0.5);
-        this.build = this.add.sprite(config.width / 2, config.height / 2, "build");
+        this.background = this.add.image(0, -650, "build_background").setOrigin(0);
+
+        this.build = this.add.sprite(config.width / 2, config.height / 2 + 100, "build");
 
         this.anims.create({
             key: "build_anim",
             frames: this.anims.generateFrameNumbers("build"),
-            frameRate: 2,
+            frameRate: 3,
             repeat: 0
         });
 
-        this.build.scale = 4;
+        this.build.scale = 0.5;
 
         this.build.play("build_anim");
 
-        */
-        const backButton = this.add.text(config.width/3, config.height - 150, 'Main Map!', {
+        const backButton = this.add.text(840, config.height - 75, 'Main Map!', {
             font: "50px Arial",
             fill: '#0f0'
             })

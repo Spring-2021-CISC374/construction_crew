@@ -4,28 +4,19 @@ class LevelOne extends Phaser.Scene {
   }
 
   create() {
+    //this.background = this.add.image(0, 0, "background").setOrigin(0).setScale(7);
+    //this.add.text(20, 20, "Tutorial...");
 
-    const menuButton = this.add.text(config.width/3, config.height/3 + 100, 'Menu', {
-      font: "70px Arial",
+
+    const backButton = this.add.text(config.width/3, config.height - 150, 'Main Map!', {
+      font: "50px Arial",
       fill: '#0f0'
       })
       .setInteractive()
-      .on('pointerdown', () => this.updateToMainMapScene());
-
-    const buildButton = this.add.text(config.width/3, config.height/3 + 200, 'Build', {
-      font: "70px Arial",
-      fill: '#0f0'
-      })
-      .setInteractive()
-      .on('pointerdown', () => this.updateToBuildScene());
+      .on('pointerdown', () => this.updateScene());
   }
 
-  updateToMainMapScene() {
+  updateScene() {
     this.scene.start("MainMap");
-  }
-
-  updateToBuildScene() {
-    const correct = true;
-    this.scene.start("Build", {message: correct});
   }
 }

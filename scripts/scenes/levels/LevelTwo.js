@@ -1,6 +1,6 @@
-class LevelTwo extends Phaser.Scene {
+class LevelThree extends Phaser.Scene {
   constructor() {
-    super("LevelTwo");
+    super("LevelThree");
   }
 
   create() {

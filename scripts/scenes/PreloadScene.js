@@ -4,8 +4,12 @@ class PreloadScene extends Phaser.Scene {
   }
 
   preload(){
-    this.load.image("background", "assets/images/construction.jpg");
+    this.load.image("background", "assets/images/construction_tape.jpg");
     this.load.image("main_map", "assets/images/main_map.jpg");
+    this.load.image("button_tape", "assets/images/button_tape.jpg");
+    this.load.image("tutorial_button", "assets/images/tutorial_button.jpg");
+    this.load.image("start_game_button", "assets/images/start_game_button.jpg");
+    this.load.image("free_play_button", "assets/images/free_play_button.jpg");
 
     this.load.image("concrete", "assets/images/concrete.png");
     this.load.image("electritian", "assets/images/electritian.png");

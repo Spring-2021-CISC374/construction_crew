@@ -25,7 +25,7 @@ class LevelOne extends Phaser.Scene {
   }
 
   updateToBuildScene() {
-    const correct = false;
+    const correct = true;
     this.scene.start("Build", {message: correct});
   }
 }

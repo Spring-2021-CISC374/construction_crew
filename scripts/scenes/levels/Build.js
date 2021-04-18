@@ -6,16 +6,14 @@ class Build extends Phaser.Scene {
     create() {
         this.background = this.add.image(0, -650, "build_background").setOrigin(0);
 
-        this.build = this.add.sprite(config.width / 2, config.height / 2 + 100, "build");
+        this.build = this.add.sprite(config.width / 2, config.height / 2 + 100, "building");
 
         this.anims.create({
             key: "build_anim",
-            frames: this.anims.generateFrameNumbers("build"),
-            frameRate: 3,
+            frames: this.anims.generateFrameNumbers("building"),
+            frameRate: 2,
             repeat: 0
         });
-
-        this.build.scale = 0.5;
 
         this.build.play("build_anim");
 

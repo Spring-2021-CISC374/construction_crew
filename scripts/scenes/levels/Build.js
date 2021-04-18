@@ -5,6 +5,7 @@ class Build extends Phaser.Scene {
 
     init (data){
         this.correct = data.message;
+        this.level = data.level;
     }
   
     create() {
@@ -49,7 +50,8 @@ class Build extends Phaser.Scene {
     }
 
     updateScene(){
-        this.scene.start("LevelOne");
+        const lev = this.level;
+        this.scene.start(lev);
     }
 
     

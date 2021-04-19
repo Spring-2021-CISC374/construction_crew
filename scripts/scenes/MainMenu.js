@@ -10,15 +10,6 @@ class MainMenu extends Phaser.Scene {
     this.createStartGameButton()
     this.createFreePlayButton()
 
-      /*
-      const calendarButton = this.add.text(config.width/3, config.height/3 + 400, 'Calendar', {
-        font: "70px Arial",
-        fill: '#0f0'
-        })
-        .setInteractive()
-        .on('pointerdown', () => this.updateCalendarScene());
-        */
-
   }
 
   createTutorialButton() {
@@ -39,6 +30,8 @@ class MainMenu extends Phaser.Scene {
       container.on('pointerout', function () {
         bg.clearTint();
       });
+
+      container.visible = false; //this hides the button
   }
 
   createStartGameButton() {
@@ -80,23 +73,8 @@ class MainMenu extends Phaser.Scene {
         bg.clearTint();
       });
 
-      /*
-      if (bg.input.pointerOver()) {
-        bg.setTint('black');
-      }
-      else {
-        bg.clearTint();
-      }
+      container.visible = false; // this hides the button
 
-
-      container.on('pointerover', function () {
-        bg.setTint('black');
-      });
-
-      container.on('pointerout', function () {
-        bg.clearTint();
-      });
-      */
   }
 
   updateTutorialScene() {

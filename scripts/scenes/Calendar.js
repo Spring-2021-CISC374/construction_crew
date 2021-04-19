@@ -151,7 +151,7 @@ class Calendar extends Phaser.Scene {
 
   get_data(){
     let res=new Object();
-    delete result['undefined'];
+    
     this.arr.forEach(element => {
       if(element.getData('jobid')!=-1){
         res[element.getData('jobid')] = parseInt(element.getData('zoneid'));
@@ -170,7 +170,7 @@ class Calendar extends Phaser.Scene {
     var score = 0;
     var correct = 5;
     var result = this.get_data();
-    
+    delete result['undefined'];
     //console.log(result);
     if(Object.keys(result).length != levels[level].length){
       alert('Please finish all the contractors');

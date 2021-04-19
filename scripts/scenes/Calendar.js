@@ -2,7 +2,7 @@ class Calendar extends Phaser.Scene {
   arr = [];
   constructor() {
     super("Calendar");
-    
+
   }
   preload() {
     this.load.scenePlugin('rexuiplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexuiplugin.min.js', 'rexUI', 'rexUI');
@@ -17,25 +17,23 @@ class Calendar extends Phaser.Scene {
     var graphics = this.add.graphics();
     let self = this;
     graphics.lineStyle(1, 0xf00, 1);
-    const backButton = this.add
-      .text(config.width / 3, config.height - 150, "Go Back", {
-        font: "50px Arial",
-        fill: "#0f0",
-      })
-      .setInteractive({ useHandCursor: true })
-      .on("pointerdown", () => this.updateScene());
-    this.add.text(200, config.height - 150, "submit", {
-      font: "50px Arial",
-      fill: "#6cf"
-      })
-      .setInteractive({ useHandCursor: true })
-      .on("pointerdown", () => this.score(this.data.level));
+
+    this.createBackToMapButton();
+
+    var bg = this.add.image(0, 0, "build_button");
+    var text = this.add.text(0, 0, "");
+    var container = this.add.container(20, 10, [ bg, text ]);
+
+    container.setSize(bg.width, bg.height);
+    container.setPosition(config.width - 250, config.height - 150);
+    container.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.score(this.data.level));
     console.log(this.data);
     this.gen_list(this.data.contractor);
     this.gen_calendar(graphics, 5);
     this.input.on("dragstart", function (pointer, gameObject) {
       this.children.bringToTop(gameObject);
     }, this);
+
 
     this.input.on('drop', function (pointer, gameObject, dropZone) {
       if (dropZone.getData('item') == 1) {
@@ -50,8 +48,6 @@ class Calendar extends Phaser.Scene {
         gameObject.setData('zoneid',dropZone.getData('zoneid'));
       }
 
-
-      //gameObject.input.enabled = false;
 
     });
 
@@ -125,7 +121,7 @@ class Calendar extends Phaser.Scene {
     var height = 200;//(endy - starty) / 7;
     var blocked = this.data.blocked;
     console.log(blocked);
-    
+
     for (var i = 0; i < 7; i++) {
       var zone = this.add.text(startx + width * i + 50, 50, week[i],{
         font: "25px Arial",
@@ -151,7 +147,7 @@ class Calendar extends Phaser.Scene {
 
   get_data(){
     let res=new Object();
-    
+
     this.arr.forEach(element => {
       if(element.getData('jobid')!=-1){
         res[element.getData('jobid')] = parseInt(element.getData('zoneid'));
@@ -186,10 +182,34 @@ class Calendar extends Phaser.Scene {
     if(result[levels[level][levels[level].length-1]] > result[levels[level][0]]){
       score += correct;
     }
-    
+
     var full_point = (score == levels[level].length*correct);
     this.scene.start("Build",{message: full_point, level: names[level], score: score});
     console.log(score);
 
+  }
+
+  createBackToMapButton() {
+    var bg = this.add.image(0, 0, "back_to_map");
+    var text = this.add.text(0, 0, "");
+
+    var container = this.add.container(20, 10, [ bg, text ]);
+
+    container.setSize(bg.width, bg.height);
+    container.setPosition(250, config.height - 150);
+    container.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.updateToMainMapScene());
+
+    //this doesn't entirely work yet
+    container.on('pointerover', function () {
+      bg.setTint(0xffffff);
+    });
+
+    container.on('pointerout', function () {
+      bg.clearTint();
+    });
+  }
+
+  updateToMainMapScene() {
+    this.scene.start("MainMap");
   }
 }

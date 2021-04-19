@@ -166,6 +166,7 @@ class Calendar extends Phaser.Scene {
     var leveltwo=["Plummer", "Roofer", "Electrician", "Painter"];
     var levelthree=["Concrete", "Framer", "Plummer", "Roofer", "Electrician", "Painter"];
     var levels = [levelone,leveltwo,levelthree];
+    var names = ['LevelOne','LevelTwo','LevelThree'];
     var score = 0;
     var correct = 5;
     var result = this.get_data();
@@ -185,8 +186,9 @@ class Calendar extends Phaser.Scene {
     if(result[levels[level][levels[level].length-1]] > result[levels[level][0]]){
       score += correct;
     }
-    alert('you got '+score+' points!');
-    return;
+    
+    var full_point = score == levels[level].length*correct;
+    this.scene.start("Build",{message: full_point, level: names[level]});
     console.log(score);
 
   }

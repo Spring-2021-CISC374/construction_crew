@@ -162,7 +162,7 @@ class Calendar extends Phaser.Scene {
   }
   score(level){
     level -= 1;
-    var levelone=["Roofer","Painter","Electrician"];
+    var levelone=["Roofer","Electrician","Painter"];
     var leveltwo=["Plumber", "Roofer", "Electrician", "Painter"];
     var levelthree=["Concrete", "Framer", "Plumber", "Roofer", "Electrician", "Painter"];
     var levels = [levelone,leveltwo,levelthree];

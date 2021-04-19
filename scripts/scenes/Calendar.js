@@ -8,7 +8,9 @@ class Calendar extends Phaser.Scene {
     this.load.scenePlugin('rexuiplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexuiplugin.min.js', 'rexUI', 'rexUI');
     this.load.plugin('rexgridtableplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexgridtableplugin.min.js', true);
   }
-
+  init(data) {
+    this.data=data;
+  }
   create() {
     this.background = this.add.image(0, 0, "build_background").setOrigin(0);
 
@@ -27,8 +29,9 @@ class Calendar extends Phaser.Scene {
       fill: "#6cf"
       })
       .setInteractive({ useHandCursor: true })
-      .on("pointerdown", () => this.scene.start('Score', this.get_data()));
-    this.gen_list(3);
+      .on("pointerdown", () => this.score(this.data.level));
+    console.log(this.data);
+    this.gen_list(this.data.contractor);
     this.gen_calendar(graphics, 5);
     this.input.on("dragstart", function (pointer, gameObject) {
       this.children.bringToTop(gameObject);
@@ -71,12 +74,12 @@ class Calendar extends Phaser.Scene {
 
     this.input.on('gameobjectover', function (pointer, gameObject) {
 
-      console.log('over');
+      //console.log('over');
 
     });
     this.input.on('gameobjectout', function (pointer, gameObject) {
 
-      console.log('out');
+      //console.log('out');
 
     });
   }
@@ -88,13 +91,13 @@ class Calendar extends Phaser.Scene {
     this.arr[zoneid].setData('item',0);
     this.arr[zoneid].setData('jobid',-1)
   }
-  gen_list(num) {
+  gen_list(contractor) {
     var startx = 100;
     var starty = 500;
     var padding = 200;
-    for (var i = 0; i < num; i++) {
+    for (var i = 0; i < contractor.length; i++) {
       var tmp = this.add
-        .text(startx + i * padding, starty, "item" + i.toString(), {
+        .text(startx+i*padding, starty, contractor[i], {
           fontSize: "30px",
           fontStyles: "bold",
           fill: "#0f0",
@@ -105,14 +108,14 @@ class Calendar extends Phaser.Scene {
         .setOrigin(0.5);
       tmp.setData("x", tmp.x);
       tmp.setData("y", tmp.y);
-      tmp.setData('jobid',i);
+      tmp.setData('jobid',contractor[i]);
       tmp.setData('zoneid',-1);
       this.input.setDraggable(tmp);
 
     }
   }
 
-  gen_calendar(graphics, y) {
+  gen_calendar(graphics) {
     var week=['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     var startx = 100;
     var endx = config.width - 100;
@@ -120,6 +123,8 @@ class Calendar extends Phaser.Scene {
     var endy = config.height - 75;
     var width = (endx - startx) / 7;
     var height = 200;//(endy - starty) / 7;
+    var blocked = this.data.blocked;
+    console.log(blocked);
     
     for (var i = 0; i < 7; i++) {
       var zone = this.add.text(startx + width * i + 50, 50, week[i],{
@@ -127,10 +132,15 @@ class Calendar extends Phaser.Scene {
         fill: "black"
       });
     }
-
+    var color = 0xff0000;
     for (var i = 0; i < 7; i++) {
       var zone = this.add.zone(startx + width * i + width/2, starty + height/2, width, height).setRectangleDropZone(width, height);
       //graphics.strokeRect(startx + width, i * height + starty, width, height);
+      if(blocked.includes(i)){
+        graphics.fillStyle(color);
+        graphics.fillRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height);
+        zone.disableInteractive();
+      }
       graphics.strokeRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height);
       zone.setData('zoneid', i)
       zone.setData('jobid',-1);
@@ -140,12 +150,44 @@ class Calendar extends Phaser.Scene {
   }
 
   get_data(){
-    var data={};
+    let res=new Object();
+    delete result['undefined'];
     this.arr.forEach(element => {
       if(element.getData('jobid')!=-1){
-        data[element.getData('zoneid')] = element.getData('jobid');
+        res[element.getData('jobid')] = parseInt(element.getData('zoneid'));
+        console.log(element.getData('zoneid'));
       }
     });
-    return data;
+    return res;
+  }
+  score(level){
+    level -= 1;
+    var levelone=["Roofer","Painter","Electrician"];
+    var leveltwo=["Plummer", "Roofer", "Electrician", "Painter"];
+    var levelthree=["Concrete", "Framer", "Plummer", "Roofer", "Electrician", "Painter"];
+    var levels = [levelone,leveltwo,levelthree];
+    var score = 0;
+    var correct = 5;
+    var result = this.get_data();
+    
+    //console.log(result);
+    if(Object.keys(result).length != levels[level].length){
+      alert('Please finish all the contractors');
+      return;
+    }
+    for(var i=1;i<levels[level].length;i++){
+      var after = levels[level][i];
+      var before = levels[level][i-1]
+      if(result[after] > result[before]){
+        score += correct;
+      }
+    }
+    if(result[levels[level][levels[level].length-1]] > result[levels[level][0]]){
+      score += correct;
+    }
+    alert('you got '+score+' points!');
+    return;
+    console.log(score);
+
   }
 }

@@ -6,6 +6,19 @@ class LevelOne extends Phaser.Scene {
   create() {
     this.background = this.add.image(0, -650, "build_background").setOrigin(0);
 
+    const menuButton = this.add.text(config.width/3, config.height/3 + 100, 'Menu', {
+      font: "70px Arial",
+      fill: '#0f0'
+      })
+      .setInteractive()
+      .on('pointerdown', () => this.updateToMainMapScene());
+
+    const buildButton = this.add.text(config.width/3, config.height/3 + 200, 'Build', {
+      font: "70px Arial",
+      fill: '#0f0'
+      })
+      .setInteractive()
+      .on('pointerdown', () => this.updateToBuildScene());
     this.add.text(config.width/3, 50, "Welcome to Level One!", {
       font: "60px Arial",
       fill: "black",
@@ -64,7 +77,7 @@ class LevelOne extends Phaser.Scene {
   }
 
   updateToMainMapScene() {
-    this.scene.start("MainMap");
+    this.scene.start("Calendar");
   }
 
   updateToCalendar() {

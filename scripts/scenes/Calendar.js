@@ -6,12 +6,12 @@ class Calendar extends Phaser.Scene {
   }
   preload() {
     this.load.scenePlugin('rexuiplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexuiplugin.min.js', 'rexUI', 'rexUI');
-
+    this.load.plugin('rexgridtableplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexgridtableplugin.min.js', true);
   }
+
   create() {
-    //this.background = this.add.image(0, 0, "background").setOrigin(0).setScale(7);
-    //this.add.text(20, 20, "Tutorial...");
-    
+    this.background = this.add.image(0, 0, "build_background").setOrigin(0);
+
     var graphics = this.add.graphics();
     let self = this;
     graphics.lineStyle(1, 0xf00, 1);
@@ -90,17 +90,19 @@ class Calendar extends Phaser.Scene {
   }
   gen_list(num) {
     var startx = 100;
-    var padding = 60;
+    var starty = 500;
+    var padding = 200;
     for (var i = 0; i < num; i++) {
       var tmp = this.add
-        .text(100, i * padding + startx, "item" + i.toString(), {
+        .text(startx + i * padding, starty, "item" + i.toString(), {
           fontSize: "30px",
           fontStyles: "bold",
           fill: "#0f0",
           backgroundColor: "#3eaae8",
           padding: 10
         })
-        .setInteractive({ useHandCursor: true });
+        .setInteractive({ useHandCursor: true })
+        .setOrigin(0.5);
       tmp.setData("x", tmp.x);
       tmp.setData("y", tmp.y);
       tmp.setData('jobid',i);
@@ -109,31 +111,34 @@ class Calendar extends Phaser.Scene {
 
     }
   }
+
   gen_calendar(graphics, y) {
     var week=['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    var startx = config.width / 3 + 100;
+    var startx = 100;
     var endx = config.width - 100;
     var starty = 100;
-    var endy = config.height - 100;
+    var endy = config.height - 75;
     var width = (endx - startx) / 7;
-    var height = (endy - starty) / y;
-    //this.add.grid(startx, starty, endx - startx, endy - starty, width, height).setOutlineStyle(0xfff).setOrigin(0, 0);
+    var height = 200;//(endy - starty) / 7;
+    
     for (var i = 0; i < 7; i++) {
-      var zone = this.add.text(startx + i * width +10, 50,week[i],{
+      var zone = this.add.text(startx + width * i + 50, 50, week[i],{
         font: "25px Arial",
-        fill: "#6cf"
+        fill: "black"
       });
     }
-    for (var j = 0; j < y; j++) {
-      for (var i = 0; i < 7; i++) {
-        var zone = this.add.zone(startx + i * width, j * height + starty, width, height).setRectangleDropZone(width, height);
-        graphics.strokeRect(startx + i * width, j * height + starty, width, height);
-        zone.setData('zoneid',j*7+i)
-        zone.setData('jobid',-1);
-        this.arr.push(zone);
-      }
+
+    for (var i = 0; i < 7; i++) {
+      var zone = this.add.zone(startx + width * i + width/2, starty + height/2, width, height).setRectangleDropZone(width, height);
+      //graphics.strokeRect(startx + width, i * height + starty, width, height);
+      graphics.strokeRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height);
+      zone.setData('zoneid', i)
+      zone.setData('jobid',-1);
+      this.arr.push(zone);
     }
+
   }
+
   get_data(){
     var data={};
     this.arr.forEach(element => {

@@ -162,7 +162,7 @@ class Calendar extends Phaser.Scene {
   }
   score(level){
     level -= 1;
-    var levelone=["Roofer","Painter","Electrician"];
+    var levelone=["Roofer","Electrician","Painter"];
     var leveltwo=["Plummer", "Roofer", "Electrician", "Painter"];
     var levelthree=["Concrete", "Framer", "Plummer", "Roofer", "Electrician", "Painter"];
     var levels = [levelone,leveltwo,levelthree];
@@ -187,8 +187,8 @@ class Calendar extends Phaser.Scene {
       score += correct;
     }
     
-    var full_point = score == levels[level].length*correct;
-    this.scene.start("Build",{message: full_point, level: names[level]});
+    var full_point = (score == levels[level].length*correct);
+    this.scene.start("Build",{message: full_point, level: names[level], score: score});
     console.log(score);
 
   }

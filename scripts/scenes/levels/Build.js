@@ -6,12 +6,14 @@ class Build extends Phaser.Scene {
     init (data){
         this.correct = data.message;
         this.level = data.level;
+        this.score = data.score;
     }
 
     create() {
         this.background = this.add.image(0, -650, "build_background").setOrigin(0);
 
         const correct = this.correct;
+        var score = this.score;
 
         var style = { font: "50px Arial", fill: "black", boundsAlignH: "center", boundsAlignV: "middle"};
 
@@ -26,7 +28,7 @@ class Build extends Phaser.Scene {
             this.build.play("build_anim");
             this.build.scale = 1.5;
 
-            const message = this.add.text(config.width - 700, config.height / 2 - 100, 'Congradulations!\nYou did it!', style);
+            const message = this.add.text(config.width - 700, config.height / 2 - 150, 'Congradulations!\nScore: ' + score + '\nYou did it!', style);
 
             this.createCorrectPageButton()
 
@@ -35,7 +37,7 @@ class Build extends Phaser.Scene {
 
             this.wrong = this.add.image(config.width / 3, config.height / 2, "wrong");
 
-            const message = this.add.text(config.width - 700, config.height / 2 - 100, 'Incorrect!\nPlease try again!\n', style);
+            const message = this.add.text(config.width - 700, config.height / 2 - 150, 'Incorrect!\nScore: ' + score + '\nPlease try again!\n', style);
 
             this.createTryAgainButton()
             const backButton = this.add.text(config.width - 700, config.height / 2 + 100, 'Try Again', style)

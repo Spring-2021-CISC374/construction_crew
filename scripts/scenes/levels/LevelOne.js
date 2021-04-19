@@ -6,39 +6,17 @@ class LevelOne extends Phaser.Scene {
   create() {
     this.background = this.add.image(0, -650, "build_background").setOrigin(0);
 
-    const menuButton = this.add.text(config.width/3, config.height/3 + 100, 'Menu', {
-      font: "70px Arial",
-      fill: '#0f0'
-      })
-      .setInteractive()
-      .on('pointerdown', () => this.updateToMainMapScene());
-
-    const buildButton = this.add.text(config.width/3, config.height/3 + 200, 'Build', {
-      font: "70px Arial",
-      fill: '#0f0'
-      })
-      .setInteractive()
-      .on('pointerdown', () => this.updateToBuildScene());
     this.add.text(config.width/3, 50, "Welcome to Level One!", {
       font: "60px Arial",
       fill: "black",
       align: "center"
     });
 
-    this.add.text(105, 120, "To construct your building, schedule the following subcontractors in the proper order into the calendar!", {
-      font: "35px Arial",
+    this.add.text(config.width/4, 120, "To construct your building, schedule the following subcontractors in the proper order into the calendar!", {
+      font: "20px Arial",
       fill: "black",
       align: "center"
     });
-
-    const roofer = this.add.image(config.width/3 - 50, config.height/2, "roofer");
-    roofer.scale = 1.3;
-
-    const painter = this.add.image(config.width/2, config.height/2 - 50, "painter");
-    painter.scale = 0.2;
-
-    const electrician = this.add.image(config.width/4*3 - 200, config.height/2 - 50, "electritian");
-    electrician.scale = 1.5;
 
     this.createBackToMapButton()
     this.createBeginBuildingButton()
@@ -86,12 +64,12 @@ class LevelOne extends Phaser.Scene {
   }
 
   updateToMainMapScene() {
-    this.scene.start("Calendar");
+    this.scene.start("MainMap");
   }
 
   updateToCalendar() {
     const correct = true;
     const leveler = "LevelOne";
-    this.scene.start("Calendar", {message: correct, level: leveler});
+    this.scene.start("Calendar", {contractor: ["Roofer","Painter","Electrician"], blocked: [0,2,3,6], level: 1});
   }
 }

@@ -129,7 +129,7 @@ class Calendar extends Phaser.Scene {
     for (var i = 0; i < 7; i++) {
       var zone = this.add.zone(startx + width, i * height + starty, width, height).setRectangleDropZone(width, height);
       graphics.strokeRect(startx + width, i * height + starty, width, height);
-      zone.setData('zoneid', 7+i)
+      zone.setData('zoneid', i)
       zone.setData('jobid',-1);
       this.arr.push(zone);
     }

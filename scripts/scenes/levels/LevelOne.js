@@ -9,19 +9,19 @@ class LevelOne extends Phaser.Scene {
       font: "70px Arial",
       fill: '#0f0'
       })
-      .setInteractive({ useHandCursor: true })
+      .setInteractive()
       .on('pointerdown', () => this.updateToMainMapScene());
 
     const buildButton = this.add.text(config.width/3, config.height/3 + 200, 'Build', {
       font: "70px Arial",
       fill: '#0f0'
       })
-      .setInteractive({ useHandCursor: true })
+      .setInteractive()
       .on('pointerdown', () => this.updateToBuildScene());
   }
 
   updateToMainMapScene() {
-    this.scene.start("MainMap");
+    this.scene.start("Calendar");
   }
 
   updateToBuildScene() {

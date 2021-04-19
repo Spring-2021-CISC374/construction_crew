@@ -12,11 +12,29 @@ class LevelThree extends Phaser.Scene {
         align: "center"
       });
 
-      this.add.text(config.width/4, 120, "To construct your building, schedule the following subcontractors in the proper order into the calendar!", {
-        font: "20px Arial",
+      this.add.text(105, 120, "To construct your building, schedule the following subcontractors in the proper order into the calendar!", {
+        font: "35px Arial",
         fill: "black",
         align: "center"
       });
+
+      const roofer = this.add.image(config.width/4 - 200, config.height/2, "roofer");
+      roofer.scale = 1.3;
+
+      const painter = this.add.image(config.width/2 - 300, config.height/2 - 50, "painter");
+      painter.scale = 0.2;
+
+      const electrician = this.add.image(config.width/2 - 50, config.height/2 - 50, "electritian");
+      electrician.scale = 1.5;
+
+      const plumer = this.add.image(config.width/4*3 - 250, config.height / 2 - 50, "plumer");
+      plumer.scale = 0.5;
+
+      const concrete = this.add.image(config.width/4*3 + 50, config.height / 2 - 50, "concrete");
+      concrete.scale = 3;
+
+      const framer = this.add.image(config.width/4*3 + 350, config.height / 2 - 100, "framers");
+      framer.scale = 3;
 
       this.createBackToMapButton()
       this.createBeginBuildingButton()

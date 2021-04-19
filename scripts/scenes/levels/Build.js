@@ -40,9 +40,7 @@ class Build extends Phaser.Scene {
             const message = this.add.text(config.width - 700, config.height / 2 - 150, 'Incorrect!\nScore: ' + score + '\nPlease try again!\n', style);
 
             this.createTryAgainButton()
-            const backButton = this.add.text(config.width - 700, config.height / 2 + 100, 'Try Again', style)
-            .setInteractive({ useHandCursor: true })
-            .on('pointerdown', () => this.updateScene());
+    
         }
 
     }
@@ -68,7 +66,7 @@ class Build extends Phaser.Scene {
     }
 
     createTryAgainButton() {
-      var bg = this.add.image(0, 0, "try_again");
+      var bg = this.add.image(0, 0, "try_again_button");
       var text = this.add.text(0, 0, "");
 
       var container = this.add.container(20, 10, [ bg, text ]);

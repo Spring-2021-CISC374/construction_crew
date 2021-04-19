@@ -90,17 +90,19 @@ class Calendar extends Phaser.Scene {
   }
   gen_list(num) {
     var startx = 100;
-    var padding = 60;
+    var starty = 500;
+    var padding = 200;
     for (var i = 0; i < num; i++) {
       var tmp = this.add
-        .text(100, i * padding + startx, "item" + i.toString(), {
+        .text(startx + i * padding, starty, "item" + i.toString(), {
           fontSize: "30px",
           fontStyles: "bold",
           fill: "#0f0",
           backgroundColor: "#3eaae8",
           padding: 10
         })
-        .setInteractive({ useHandCursor: true });
+        .setInteractive({ useHandCursor: true })
+        .setOrigin(0.5);
       tmp.setData("x", tmp.x);
       tmp.setData("y", tmp.y);
       tmp.setData('jobid',i);
@@ -112,23 +114,24 @@ class Calendar extends Phaser.Scene {
 
   gen_calendar(graphics, y) {
     var week=['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    var startx = config.width / 4;
-    var endx = config.width / 2 + 100;
-    var starty = 75;
+    var startx = 100;
+    var endx = config.width - 100;
+    var starty = 100;
     var endy = config.height - 75;
-    var width = (endx - startx);
-    var height = (endy - starty) / 7;
+    var width = (endx - startx) / 7;
+    var height = 200;//(endy - starty) / 7;
     
     for (var i = 0; i < 7; i++) {
-      var zone = this.add.text(startx + 400, (i + 1) * height + 10, week[i],{
+      var zone = this.add.text(startx + width * i + 50, 50, week[i],{
         font: "25px Arial",
         fill: "black"
       });
     }
 
     for (var i = 0; i < 7; i++) {
-      var zone = this.add.zone(startx + width, i * height + starty, width, height).setRectangleDropZone(width, height);
-      graphics.strokeRect(startx + width, i * height + starty, width, height);
+      var zone = this.add.zone(startx + width * i + width/2, starty + height/2, width, height).setRectangleDropZone(width, height);
+      //graphics.strokeRect(startx + width, i * height + starty, width, height);
+      graphics.strokeRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height);
       zone.setData('zoneid', i)
       zone.setData('jobid',-1);
       this.arr.push(zone);

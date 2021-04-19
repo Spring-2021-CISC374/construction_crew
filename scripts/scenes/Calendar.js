@@ -187,8 +187,8 @@ class Calendar extends Phaser.Scene {
       score += correct;
     }
     
-    var full_point = score == levels[level].length*correct;
-    this.scene.start("Build",{message: full_point, level: names[level]});
+    var full_point = (score == levels[level].length*correct);
+    this.scene.start("Build",{message: full_point, level: names[level], score: score});
     console.log(score);
 
   }

@@ -88,12 +88,14 @@ class Calendar extends Phaser.Scene {
     this.arr[zoneid].setData('jobid',-1)
   }
   gen_list(contractor) {
-    var startx = 100;
-    var starty = 500;
+    var startx = 200;
+    var starty = 400;
+    var endx = config.width - 100;
+    var width = (endx - startx) / contractor.length;
     var padding = 200;
     for (var i = 0; i < contractor.length; i++) {
       var tmp = this.add
-        .text(startx+i*padding, starty, contractor[i], {
+        .text(startx+i*width, starty, contractor[i], {
           fontSize: "30px",
           fontStyles: "bold",
           fill: "#0f0",

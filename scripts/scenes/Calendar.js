@@ -27,7 +27,7 @@ class Calendar extends Phaser.Scene {
     container.setSize(bg.width, bg.height);
     container.setPosition(config.width - 250, config.height - 150);
     container.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.score(this.data.level));
-    console.log(this.data);
+    this.arr=[];
     this.gen_list(this.data.contractor);
     this.gen_calendar(graphics, 5);
     this.input.on("dragstart", function (pointer, gameObject) {
@@ -118,14 +118,13 @@ class Calendar extends Phaser.Scene {
     var startx = 100;
     var endx = config.width - 100;
     var starty = 100;
-    var endy = config.height - 75;
     var width = (endx - startx) / 7;
     var height = 200;//(endy - starty) / 7;
     var blocked = this.data.blocked;
     console.log(blocked);
 
     for (var i = 0; i < 7; i++) {
-      var zone = this.add.text(startx + width * i + 50, 50, week[i],{
+      this.add.text(startx + width * i + 50, 50, week[i],{
         font: "25px Arial",
         fill: "black"
       });

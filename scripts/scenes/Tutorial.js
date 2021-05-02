@@ -30,9 +30,9 @@ class Tutorial extends Phaser.Scene {
       fill: "black"
     });
 
-    const framer = this.add.image(config.width/2 - 275, config.height / 2, "framers");
+    const farmer = this.add.image(config.width/2 - 275, config.height / 2, "farmer");
 
-    this.add.text(config.width/2 - 325, config.height / 2 + 75, "framer", {
+    this.add.text(config.width/2 - 325, config.height / 2 + 75, "farmer", {
       font: "20px Arial",
       fill: "black"
     });
@@ -45,10 +45,10 @@ class Tutorial extends Phaser.Scene {
       fill: "black"
     });
 
-    const plumer = this.add.image(config.width/2 + 275, config.height / 2, "plumer");
-    plumer.scale = 0.35;
+    const plumber = this.add.image(config.width/2 + 275, config.height / 2, "plumber");
+    plumber.scale = 0.35;
 
-    this.add.text(config.width/2 + 250, config.height / 2 + 75, "plumer", {
+    this.add.text(config.width/2 + 250, config.height / 2 + 75, "plumber", {
       font: "20px Arial",
       fill: "black"
     });

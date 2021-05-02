@@ -24,7 +24,7 @@ class LevelOne extends Phaser.Scene {
     const painter = this.add.image(config.width/2, config.height/2 - 50, "painter");
     painter.scale = 0.2;
 
-    const electrician = this.add.image(config.width/4*3 - 200, config.height/2 - 50, "electritian");
+    const electrician = this.add.image(config.width/4*3 - 200, config.height/2 - 50, "electrician");
     electrician.scale = 1.5;
 
     this.createBackToMapButton()

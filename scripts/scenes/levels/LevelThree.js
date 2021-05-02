@@ -24,17 +24,17 @@ class LevelThree extends Phaser.Scene {
       const painter = this.add.image(config.width/2 - 300, config.height/2 - 50, "painter");
       painter.scale = 0.2;
 
-      const electrician = this.add.image(config.width/2 - 50, config.height/2 - 50, "electritian");
+      const electrician = this.add.image(config.width/2 - 50, config.height/2 - 50, "electrician");
       electrician.scale = 1.5;
 
-      const plumer = this.add.image(config.width/4*3 - 250, config.height / 2 - 50, "plumer");
-      plumer.scale = 0.5;
+      const plumber = this.add.image(config.width/4*3 - 250, config.height / 2 - 50, "plumber");
+      plumber.scale = 0.5;
 
       const concrete = this.add.image(config.width/4*3 + 50, config.height / 2 - 50, "concrete");
       concrete.scale = 3;
 
-      const framer = this.add.image(config.width/4*3 + 350, config.height / 2 - 100, "framers");
-      framer.scale = 3;
+      const farmer = this.add.image(config.width/4*3 + 350, config.height / 2 - 100, "farmer");
+      farmer.scale = 3;
 
       this.createBackToMapButton()
       this.createBeginBuildingButton()
@@ -88,6 +88,6 @@ class LevelThree extends Phaser.Scene {
     updateToCalendar() {
       const correct = true;
       const leveler = "LevelThree";
-      this.scene.start("Calendar", {contractor: ["Concrete", "Framer", "Plumber", "Roofer", "Electrician", "Painter"], blocked: [2], level: 3});
+      this.scene.start("Calendar", {contractor: ["Concrete", "Farmer", "Plumber", "Roofer", "Electrician", "Painter"], blocked: [2], level: 3});
     }
   }

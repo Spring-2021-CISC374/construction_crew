@@ -12,7 +12,8 @@ class Calendar extends Phaser.Scene {
     this.data=data;
   }
   create() {
-    this.background = this.add.image(0, 0, "build_background").setOrigin(0);
+
+    this.background = this.add.image(0, 0, "sunset").setOrigin(0).setScale(3);
 
     var graphics = this.add.graphics();
     let self = this;
@@ -130,13 +131,18 @@ class Calendar extends Phaser.Scene {
       });
     }
     var color = 0xff0000;
+    var whiteTransparent = 0xffffff
     for (var i = 0; i < 7; i++) {
       var zone = this.add.zone(startx + width * i + width/2, starty + height/2, width, height).setRectangleDropZone(width, height);
-      //graphics.strokeRect(startx + width, i * height + starty, width, height);
+      //graphics.strokeRect(startx + width, i * height + starty, width, height)
+
       if(blocked.includes(i)){
-        graphics.fillStyle(color);
-        graphics.fillRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height);
+        graphics.fillRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height).fillStyle(color).setAlpha(0.5);
         zone.disableInteractive();
+      }
+      else {
+        graphics.fillRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height).fillStyle(whiteTransparent).setAlpha(0.3);
+        zone.setInteractive();
       }
       graphics.strokeRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height);
       zone.setData('zoneid', i)

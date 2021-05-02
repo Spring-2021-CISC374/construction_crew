@@ -24,11 +24,11 @@ class LevelTwo extends Phaser.Scene {
       const painter = this.add.image(config.width/2 - 100, config.height/2 - 50, "painter");
       painter.scale = 0.2;
 
-      const electrician = this.add.image(config.width/2 + 150, config.height/2 - 50, "electritian");
+      const electrician = this.add.image(config.width/2 + 150, config.height/2 - 50, "electrician");
       electrician.scale = 1.5;
 
-      const plumer = this.add.image(config.width/4*3 - 50, config.height / 2 - 50, "plumer");
-      plumer.scale = 0.5;
+      const plumber = this.add.image(config.width/4*3 - 50, config.height / 2 - 50, "plumber");
+      plumber.scale = 0.5;
 
       this.createBackToMapButton()
       this.createBeginBuildingButton()

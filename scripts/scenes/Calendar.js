@@ -94,6 +94,7 @@ class Calendar extends Phaser.Scene {
     var endx = config.width - 100;
     var width = (endx - startx) / contractor.length;
     var padding = 200;
+    contractor = contractor.sort(() => Math.random() - 0.5);
     for (var i = 0; i < contractor.length; i++) {
       var tmp = this.add
         .text(startx+i*width, starty, contractor[i], {
@@ -122,7 +123,7 @@ class Calendar extends Phaser.Scene {
     var width = (endx - startx) / 7;
     var height = 200;//(endy - starty) / 7;
     var blocked = this.data.blocked;
-    console.log(blocked);
+    //console.log(blocked);
 
     for (var i = 0; i < 7; i++) {
       this.add.text(startx + width * i + 50, 50, week[i],{
@@ -137,12 +138,13 @@ class Calendar extends Phaser.Scene {
       //graphics.strokeRect(startx + width, i * height + starty, width, height)
 
       if(blocked.includes(i)){
-        graphics.fillRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height).fillStyle(color).setAlpha(0.5);
+        graphics.fillStyle(color);
+        graphics.fillRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height).setAlpha(0.5);
         zone.disableInteractive();
       }
       else {
-        graphics.fillRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height).fillStyle(whiteTransparent).setAlpha(0.3);
-        zone.setInteractive();
+        graphics.fillStyle(whiteTransparent);
+        graphics.fillRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height).setAlpha(0.3);
       }
       graphics.strokeRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height);
       zone.setData('zoneid', i)

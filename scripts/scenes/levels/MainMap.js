@@ -4,7 +4,6 @@ class MainMap extends Phaser.Scene {
   }
 
 
-
   create() {
 
     //var levelOneText;
@@ -16,10 +15,49 @@ class MainMap extends Phaser.Scene {
       align: "center"
     });
 
+    //TODO: need to get the score to update
+    this.add.text(config.height/14, config.height/14, "Score: " + this.score, {
+      font: "60px Arial",
+      fill: "#FFFF00",
+      align: "center"
+    });
+
     this.createMainMenuButton()
-    this.createLevelOneButton()
-    this.createLevelTwoButton()
-    this.createLevelThreeButton()
+
+    //this is here for testing purposes, we will use something more like the code below this with the updates scores
+    this.createButton(config.width/4 - 80, config.height - 140, config.width/4 - 90, config.height - 160, "1", "LevelOne")
+    this.createButton(config.width/2 - 110, config.height/2 + 20, config.width/2 - 120, config.height/2, "2", "LevelTwo")
+    this.createButton(config.width/4*3, config.height/5 + 30, config.width/4*3 - 10, config.height/5 + 10, "3", "LevelThree")
+    this.createButton(config.width/4*3 + 60, config.height - 200, config.width/4*3+50, config.height - 220, "4", "LevelFour")
+    this.createButton(config.width/2 + 100, config.height/2 + 50, config.width/2 + 90, config.height/2 + 30, "5", "LevelFive")
+    this.createButton(config.width/4 + 200, config.height/5, config.width/4 + 190, config.height/5 - 20, "6", "LevelSix")
+    this.createButton(config.width/2 - 120, config.height - 200, config.width/2 - 130, config.height - 220, "7", "LevelSeven")
+
+
+    //we want something like this, but new level is not showing up with the updates score
+    //we want the score to be sent to main map too after the players get their score in the build scene
+    /*
+    this.createButton(config.width/4 - 80, config.height - 140, config.width/4 - 90, config.height - 160, "1", "LevelOne")
+
+    if (this.score <=15) {
+      this.createButton(config.width/2 - 110, config.height/2 + 20, config.width/2 - 120, config.height/2, "2", "LevelTwo")
+    }
+    if (this.score <=30) {
+      this.createButton(config.width/4*3, config.height/5 + 30, config.width/4*3 - 10, config.height/5 + 10, "3", "LevelThree")
+    }
+    if (this.score <=45) {
+      this.createButton(config.width/4*3 + 60, config.height - 200, config.width/4*3+50, config.height - 220, "4", "LevelFour")
+    }
+    if (this.score <=60) {
+      this.createButton(config.width/2 + 100, config.height/2 + 50, config.width/2 + 90, config.height/2 + 30, "5", "LevelFive")
+    }
+    if (this.score <=75) {
+      this.createButton(config.width/4 + 200, config.height/5, config.width/4 + 190, config.height/5 - 20, "6", "LevelSix")
+    }
+    if (this.score <90) {
+      this.createButton(config.width/2 - 120, config.height - 200, config.width/2 - 130, config.height - 220, "7", "LevelSeven")
+    }
+    */
 
   }
 
@@ -42,47 +80,19 @@ class MainMap extends Phaser.Scene {
 
   }
 
-  createLevelOneButton() {
-    var sprite = this.add.circle(config.width/4 - 80, config.height - 140, 40, 0xfae802);
-    var label = this.add.text(config.width/4 - 90, config.height - 160, "1", {
+  createButton(spriteX, spriteY, labelX, labelY, levelNum, scene) {
+    var sprite = this.add.circle(spriteX, spriteY, 40, 0xfae802);
+    var label = this.add.text(labelX, labelY, levelNum, {
       font: "40px Arial",
       fill: "#000000",
       align: "center"
     });
-    sprite.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.updateToLevelOneScene());
+    sprite.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.updateToScene(scene));
+
   }
 
-  createLevelTwoButton() {
-    var sprite = this.add.circle(config.width/2 - 110, config.height/2 + 20, 40, 0xfae802);
-    var label = this.add.text(config.width/2 - 120, config.height/2, "2", {
-      font: "40px Arial",
-      fill: "#000000",
-      align: "center"
-    });
-    sprite.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.updateToLevelTwoScene());
-  }
-
-  createLevelThreeButton() {
-    var sprite = this.add.circle(config.width/4*3, config.height/5 + 30, 40, 0xfae802);
-    var label = this.add.text(config.width/4*3 - 10, config.height/5 + 10, "3", {
-      font: "40px Arial",
-      fill: "#000000",
-      align: "center"
-    });
-    sprite.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.updateToLevelThreeScene());
-  }
-
-  updateToMainScene() {
-    this.scene.start("MainMenu");
-  }
-  updateToLevelOneScene() {
-    this.scene.start("LevelOne");
-  }
-  updateToLevelTwoScene() {
-    this.scene.start("LevelTwo");
-  }
-  updateToLevelThreeScene() {
-    this.scene.start("LevelThree");
+  updateToScene(scene) {
+    this.scene.start(scene);
   }
 
 }

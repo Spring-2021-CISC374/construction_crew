@@ -35,7 +35,8 @@ class Build extends Phaser.Scene {
 
         }else{
 
-            this.wrong = this.add.image(config.width / 3, config.height / 2, "wrong");
+            this.wrong = this.add.image(config.width / 3, config.height / 2, "tester");
+            this.wrong.scale = 4;
 
             const message = this.add.text(config.width - 700, config.height / 2 - 150, 'Incorrect!\nScore: ' + score + '\nPlease try again!\n', style);
 

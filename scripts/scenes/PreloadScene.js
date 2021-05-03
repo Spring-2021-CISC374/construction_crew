@@ -26,6 +26,7 @@ class PreloadScene extends Phaser.Scene {
     this.load.image("roofer", "assets/images/roofer.png");
     this.load.image("wrong", "assets/images/wrong.png");
     this.load.image("build_background", "assets/images/build_background.png");
+    this.load.image("concrete", "assets/images/tester.png");
 
     this.load.spritesheet("building", "assets/spritesheets/animation_v3.png", {
       frameWidth: 400,

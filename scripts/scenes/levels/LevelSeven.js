@@ -34,8 +34,8 @@ class LevelSeven extends Phaser.Scene {
       const concrete = this.add.image(config.width/4*3 + 50, config.height / 2 - 50, "concrete");
       concrete.scale = 3;
 
-      const framer = this.add.image(config.width/4*3 + 350, config.height / 2 - 100, "framers");
-      framer.scale = 3;
+      const farmer = this.add.image(config.width/4*3 + 350, config.height / 2 - 100, "farmer");
+      farmer.scale = 3;
 
       this.createBackToMapButton()
       this.createBeginBuildingButton()
@@ -90,6 +90,6 @@ class LevelSeven extends Phaser.Scene {
       const correct = true;
       const leveler = "LevelSeven";
       //This needs to be changed
-      this.scene.start("Calendar", {contractor: ["Concrete", "Framer", "Plumber", "Roofer", "Electrician", "Painter"], blocked: [2], level: 3});
+      this.scene.start("Calendar", {contractor: ["Concrete", "Farmer", "Plumber", "Roofer", "Electrician", "Painter"], blocked: [2], level: 3});
     }
   }

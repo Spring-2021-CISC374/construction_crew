@@ -215,6 +215,11 @@ class Calendar extends Phaser.Scene {
     }
 
     var full_point = (score == levels[level].length * correct);
+    var high_score = localStorage.getItem(names[level]) || 0;
+    if(score > high_score){
+      localStorage.setItem('score',localStorage.getItem('score')-high_score+score);
+      localStorage.setItem(names[level],score);
+    }
     this.scene.start("Build", { message: full_point, level: names[level], score: score });
     console.log(score);
 

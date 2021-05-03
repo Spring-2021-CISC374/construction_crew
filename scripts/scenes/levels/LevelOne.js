@@ -18,8 +18,19 @@ class LevelOne extends Phaser.Scene {
       align: "center"
     });
 
+    /*
     const roofer = this.add.image(config.width/3 - 50, config.height/2, "roofer");
-    roofer.scale = 1.3;
+    roofer.scale = 1.3; */
+
+    this.character = this.add.sprite(config.width / 3 - 50, config.height / 2, "character");
+    this.anims.create({
+      key: "char_anim",
+      frames: this.anims.generateFrameNumbers("character"),
+      frameRate: 2,
+      repeat: -1
+    });
+    this.build.play("char_anim");
+    this.build.scale = 1.5;
 
     const painter = this.add.image(config.width/2, config.height/2 - 50, "painter");
     painter.scale = 0.2;

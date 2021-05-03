@@ -2,9 +2,21 @@ class MainMenu extends Phaser.Scene {
   constructor() {
     super("MainMenu");
   }
-
+  preload(){
+    this.load.audio("noise", "assets/sounds/background_sound.mp3")
+  }
   create() {
-
+    var soundConfig ={
+      mute: false,
+      volume: 0.25,
+      rate: 1,
+      detune: 0,
+      seek: 0,
+      loop: true,
+      delay: 0
+    }
+    this.backgroundsound = this.sound.add("noise");
+    this.backgroundsound.play(soundConfig);
     this.background = this.add.image(0, 0, "background").setOrigin(0).setScale(2.23);
     this.createTutorialButton()
     this.createStartGameButton()

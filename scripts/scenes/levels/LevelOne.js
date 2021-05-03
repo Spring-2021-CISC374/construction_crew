@@ -93,6 +93,6 @@ class LevelOne extends Phaser.Scene {
   updateToCalendar() {
     const correct = true;
     const leveler = "LevelOne";
-    this.scene.start("Calendar", {contractor: ["Roofer","Painter","Electrician"], blocked: [0,2,3,6], level: 1});
+    this.scene.start("Calendar", {contractor: ["Roofer","Painter","Electrician"], blocked: [0,2,3,6], level: 1, rows: 1});
   }
 }

@@ -38,6 +38,7 @@ class LevelFour extends Phaser.Scene {
       const concrete = this.add.image(config.width/4*2 - 50, config.height/2 - 240, "concrete");
       concrete.scale = 0.6;
 
+
       const farmer = this.add.image(config.width/4*2 + 180, config.height/2 - 245, "farmer");
       farmer.scale = 0.6;
       */
@@ -106,6 +107,7 @@ class LevelFour extends Phaser.Scene {
       const correct = true;
       const leveler = "LevelFour";
       //This needs to be changed
-      this.scene.start("Calendar", {contractor: ["Concrete", "Framer", "Plumber", "Roofer", "Electrician", "Painter"], blocked: [2], level: 3});
+      
+      this.scene.start("Calendar", {contractor: ["Concrete", "Farmer", "Plumber", "Roofer", "Electrician", "Painter"], blocked: [2], level: 4, rows: 2});
     }
   }

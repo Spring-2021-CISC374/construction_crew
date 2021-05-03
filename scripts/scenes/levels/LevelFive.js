@@ -90,6 +90,7 @@ class LevelFive extends Phaser.Scene {
       const correct = true;
       const leveler = "LevelFive";
       //This needs to be changed
-      this.scene.start("Calendar", {contractor: ["Concrete", "Farmer", "Plumber", "Roofer", "Electrician", "Painter"], blocked: [2], level: 3});
+      this.scene.start("Calendar", {contractor: ["Concrete", "Farmer", "Plumber", "Roofer", "Electrician", "Painter"], blocked: [2], level: 3, rows: 1, weather: [5,1,3]});
     }
   }
+

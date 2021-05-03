@@ -131,6 +131,7 @@ class Calendar extends Phaser.Scene {
     var height = 200;//(endy - starty) / 7;
     var blocked = this.data.blocked;
     var rows = this.data.rows;
+    var weather = this.data.weather;
     //console.log(blocked);
 
     for (var i = 0; i < 7; i++) {
@@ -146,7 +147,7 @@ class Calendar extends Phaser.Scene {
         var zone = this.add.zone(startx + width * i + width / 2, starty * 2 + j * height, width, height).setRectangleDropZone(width, height);
         //graphics.strokeRect(startx + width, i * height + starty, width, height)
         
-        if(this.data.weather == 2 && i == 5) {
+        if(weather.includes(i)) {
           this.add.image(startx + width * i + width / 2,starty * 2 + j * height, "storm").setScale(.3);
         }
 
@@ -192,6 +193,7 @@ class Calendar extends Phaser.Scene {
     var score = 0;
     var correct = 5;
     var result = this.get_data();
+    var weather = this.data.weather;
     delete result['undefined'];
     //console.log(result);
     if (Object.keys(result).length != levels[level].length) {
@@ -199,10 +201,12 @@ class Calendar extends Phaser.Scene {
       return;
     }
 
-    if(result.Painter == 5) {
-      console.log("hello");
-      alert('Oh no! You\'ve scheduled the painter on rainy day');
+    for(i = 0; i < weather.length; i++) {
+      if(result.Painter == weather[i]) {
+        alert('Oh no! You\'ve scheduled the painter on rainy day');
+      }
     }
+
     for (var i = 1; i < levels[level].length; i++) {
       var after = levels[level][i];
       var before = levels[level][i - 1]
@@ -249,3 +253,4 @@ class Calendar extends Phaser.Scene {
     this.scene.start("MainMap");
   }
 }
+

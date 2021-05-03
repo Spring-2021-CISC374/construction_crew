@@ -89,13 +89,13 @@ class Calendar extends Phaser.Scene {
     this.arr[zoneid].setData('jobid', -1)
   }
   gen_list(contractor) {
-    var scales = { "Concrete": 2, "Farmer": 2, "Plumber": 0.3, "Roofer": 0.75, "Electrician": 1, "Painter": 0.1 };
+    var scales = { "Concrete": 1, "Farmer": 1, "Plumber": 0.2, "Roofer": 0.5, "Electrician": .5, "Painter": 0.05 };
 
-    var startx = 200;
-    var starty = 400;
-    var endx = config.width - 100;
+    var startx = 525;
+    var starty = 600;
+    var endx = config.width - 375;
     var width = (endx - startx) / contractor.length;
-    var padding = 200;
+    var padding = 100;
     contractor = contractor.sort(() => Math.random() - 0.5);
     for (var i = 0; i < contractor.length; i++) {
       /*var tmp = this.add
@@ -130,6 +130,7 @@ class Calendar extends Phaser.Scene {
     var width = (endx - startx) / 7;
     var height = 200;//(endy - starty) / 7;
     var blocked = this.data.blocked;
+    var rows = this.data.rows;
     //console.log(blocked);
 
     for (var i = 0; i < 7; i++) {
@@ -140,23 +141,30 @@ class Calendar extends Phaser.Scene {
     }
     var color = 0xff0000;
     var whiteTransparent = 0xffffff
-    for (var i = 0; i < 7; i++) {
-      var zone = this.add.zone(startx + width * i + width / 2, starty + height / 2, width, height).setRectangleDropZone(width, height);
-      //graphics.strokeRect(startx + width, i * height + starty, width, height)
+    for(var j = 0; j < rows; j++) {
+      for (var i = 0; i < 7; i++) {
+        var zone = this.add.zone(startx + width * i + width / 2, starty * 2 + j * height, width, height).setRectangleDropZone(width, height);
+        //graphics.strokeRect(startx + width, i * height + starty, width, height)
+        
+        if(this.data.weather == 2 && i == 5) {
+          this.add.image(startx + width * i + width / 2,starty * 2 + j * height, "storm").setScale(.3);
+        }
 
-      if (blocked.includes(i)) {
-        graphics.fillStyle(color);
-        graphics.fillRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height).setAlpha(0.5);
-        zone.disableInteractive();
+        if (blocked.includes(i)) {
+          graphics.fillStyle(color);
+          graphics.fillRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height).setAlpha(0.5);
+          zone.disableInteractive();
+       }
+
+        else {
+          graphics.fillStyle(whiteTransparent);
+          graphics.fillRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height).setAlpha(0.3);
+        }
+        graphics.strokeRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height);
+        zone.setData('zoneid', j*7+i)
+        zone.setData('jobid', -1);
+        this.arr.push(zone);
       }
-      else {
-        graphics.fillStyle(whiteTransparent);
-        graphics.fillRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height).setAlpha(0.3);
-      }
-      graphics.strokeRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height);
-      zone.setData('zoneid', i)
-      zone.setData('jobid', -1);
-      this.arr.push(zone);
     }
 
   }
@@ -178,8 +186,9 @@ class Calendar extends Phaser.Scene {
     var levelone = ["Roofer", "Electrician", "Painter"];
     var leveltwo = ["Plumber", "Roofer", "Electrician", "Painter"];
     var levelthree = ["Concrete", "Farmer", "Plumber", "Roofer", "Electrician", "Painter"];
-    var levels = [levelone, leveltwo, levelthree];
-    var names = ['LevelOne', 'LevelTwo', 'LevelThree'];
+    var levelfour = ["Concrete", "Farmer", "Plumber", "Roofer", "Electrician", "Painter"];
+    var levels = [levelone, leveltwo, levelthree, levelfour];
+    var names = ['LevelOne', 'LevelTwo', 'LevelThree', 'LevelFour'];
     var score = 0;
     var correct = 5;
     var result = this.get_data();
@@ -188,6 +197,11 @@ class Calendar extends Phaser.Scene {
     if (Object.keys(result).length != levels[level].length) {
       alert('Please finish all the contractors');
       return;
+    }
+
+    if(result.Painter == 5) {
+      console.log("hello");
+      alert('Oh no! You\'ve scheduled the painter on rainy day');
     }
     for (var i = 1; i < levels[level].length; i++) {
       var after = levels[level][i];

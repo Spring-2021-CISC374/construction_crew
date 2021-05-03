@@ -172,6 +172,7 @@ class Calendar extends Phaser.Scene {
     });
     return res;
   }
+  
   score(level) {
     level -= 1;
     var levelone = ["Roofer", "Electrician", "Painter"];

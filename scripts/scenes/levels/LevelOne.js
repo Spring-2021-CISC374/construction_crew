@@ -3,43 +3,43 @@ class LevelOne extends Phaser.Scene {
     super("LevelOne");
   }
 
-
-  //ANIMATION FOR CHARACTER
-  /*
-  this.character = this.add.sprite(config.width / 3, config.height / 2, "character");
-  this.anims.create({
-    key: "char_anim",
-    frames: this.anims.generateFrameNumbers("character"),
-    frameRate: 4,
-    repeat: -1
-  });
-  this.character.play("char_anim");
-  this.character.scale = 5;
-  */
-
   create() {
     this.background = this.add.image(0, -650, "build_background").setOrigin(0);
 
-    this.add.text(config.width/3, 50, "Welcome to Level One!", {
-      font: "60px Arial",
-      fill: "black",
-      align: "center"
-    });
-
-    this.add.text(105, 120, "To construct your building, schedule the following subcontractors in the proper order into the calendar!", {
+    var speechBubble = this.add.image(0, 0, "speech");
+    speechBubble.scale = 0.8
+    var instructions = this.add.text(0, 0, "Welcome to Level 1! \n" +
+    "Drag and drop the following subcontractors \ninto the calendar so you can start building! \n\n" +
+    "Remember! \n\nYou have to build a roof before you paint the house. \n\nBut before painting, call in an electrician!", {
       font: "35px Arial",
       fill: "black",
       align: "center"
     });
+    instructions.setOrigin(0.5, .5)
+    var container = this.add.container(0, 0, [ speechBubble, instructions ]);
+    container.setSize(0, 0)//speechBubble.width/2, speechBubble.height);
+    container.setPosition(config.width/2, config.height/2 - 150);
 
-    const roofer = this.add.image(config.width/3 - 50, config.height/2, "roofer");
-    roofer.scale = 1.3;
+    const roofer = this.add.image(config.width/2 - 70, config.height/2 - 110, "roofer");
+    roofer.scale = .3;
 
-    const painter = this.add.image(config.width/2, config.height/2 - 50, "painter");
-    painter.scale = 0.2;
+    const painter = this.add.image(config.width/2 + 190, config.height/2 - 110, "painter");
+    painter.scale = 0.05;
 
-    const electrician = this.add.image(config.width/4*3 - 200, config.height/2 - 50, "electrician");
-    electrician.scale = 1.5;
+    const electrician = this.add.image(config.width/4*3 - 230, config.height/2 - 30, "electrician");
+    electrician.scale = 0.45;
+
+    //ANIMATION FOR CHARACTER
+
+    this.character = this.add.sprite(config.width/8, config.height / 2, "character");
+    this.anims.create({
+      key: "char_anim",
+      frames: this.anims.generateFrameNumbers("character"),
+      frameRate: 4,
+      repeat: -1
+    });
+    this.character.play("char_anim");
+    this.character.scale = 5;
 
     this.createBackToMapButton()
     this.createBeginBuildingButton()

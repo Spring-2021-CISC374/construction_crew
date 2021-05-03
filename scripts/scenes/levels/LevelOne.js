@@ -3,6 +3,20 @@ class LevelOne extends Phaser.Scene {
     super("LevelOne");
   }
 
+
+  //ANIMATION FOR CHARACTER
+  /*
+  this.character = this.add.sprite(config.width / 3, config.height / 2, "character");
+  this.anims.create({
+    key: "char_anim",
+    frames: this.anims.generateFrameNumbers("character"),
+    frameRate: 4,
+    repeat: -1
+  });
+  this.character.play("char_anim");
+  this.character.scale = 5;
+  */
+
   create() {
     this.background = this.add.image(0, -650, "build_background").setOrigin(0);
 

@@ -26,6 +26,9 @@ class PreloadScene extends Phaser.Scene {
     this.load.image("roofer", "assets/images/roofer.png");
     this.load.image("wrong", "assets/images/wrong.png");
     this.load.image("build_background", "assets/images/build_background.png");
+    this.load.image("tester", "assets/images/tester.png");
+    this.load.image("storm", "assets/images/storm.png");
+    this.load.image("rain", "assets/images/rain.png");
 
     this.load.spritesheet("building", "assets/spritesheets/animation_v3.png", {
       frameWidth: 400,
@@ -52,6 +55,10 @@ class PreloadScene extends Phaser.Scene {
     this.load.spritesheet("power-up", "assets/spritesheets/power-up.png",{
       frameWidth: 16,
       frameHeight: 16
+    });
+    this.load.spritesheet("character", "assets/spritesheets/character.png",{
+      frameWidth: 32,
+      frameHeight: 32
     });
 
   }

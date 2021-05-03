@@ -89,7 +89,7 @@ class Calendar extends Phaser.Scene {
     this.arr[zoneid].setData('jobid', -1)
   }
   gen_list(contractor) {
-    var scales = { "Concrete": 3, "Farmer": 3, "Plumber": 0.5, "Roofer": 1.3, "Electrician": 1.5, "Painter": 0.2 };
+    var scales = { "Concrete": 2, "Farmer": 2, "Plumber": 0.3, "Roofer": 0.75, "Electrician": 1, "Painter": 0.1 };
 
     var startx = 200;
     var starty = 400;
@@ -172,6 +172,7 @@ class Calendar extends Phaser.Scene {
     });
     return res;
   }
+  
   score(level) {
     level -= 1;
     var levelone = ["Roofer", "Electrician", "Painter"];

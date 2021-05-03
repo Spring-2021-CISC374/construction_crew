@@ -35,8 +35,18 @@ class Build extends Phaser.Scene {
 
         }else{
 
-            this.wrong = this.add.image(config.width / 3, config.height / 2, "wrong");
-            this.wrong.scale = 4;
+            //this.wrong = this.add.image(config.width / 3, config.height / 2, "wrong");
+            //this.wrong.scale = 4;
+
+            this.character = this.add.sprite(config.width / 3, config.height / 2, "character");
+            this.anims.create({
+              key: "char_anim",
+              frames: this.anims.generateFrameNumbers("character"),
+              frameRate: 2,
+              repeat: -1
+            });
+            this.character.play("char_anim");
+            this.character.scale = 5;
 
             const message = this.add.text(config.width - 700, config.height / 2 - 150, 'Incorrect!\nScore: ' + score + '\nPlease try again!\n', style);
 

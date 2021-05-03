@@ -10,7 +10,7 @@ class LevelOne extends Phaser.Scene {
   this.anims.create({
     key: "char_anim",
     frames: this.anims.generateFrameNumbers("character"),
-    frameRate: 2,
+    frameRate: 4,
     repeat: -1
   });
   this.character.play("char_anim");

@@ -10,7 +10,7 @@ class LevelTwo extends Phaser.Scene {
       speechBubble.scale = 0.8
       var instructions = this.add.text(0, 0, "You made it to Level 2!" +
       "\n\nYou have a new subcontractor, the plumber! \nPlumbers are always scheduled before roofers!" +
-      "\n\nRemember! It might rain during the week, \nso we can't schedule any constractors for those days!", {
+      "\n\nRemember! It might rain during the week, \nso we can't schedule any contractors for those days!", {
         font: "35px Arial",
         fill: "black",
         align: "center"

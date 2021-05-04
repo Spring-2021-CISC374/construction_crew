@@ -42,7 +42,7 @@ class Build extends Phaser.Scene {
             this.build.play("build_anim");
             this.build.scale = 1.5;
 
-            const message = this.add.text(config.width - 700, config.height / 2 - 150, 'Congradulations!\nScore: ' + score + '\nYou did it!', style);
+            const message = this.add.text(config.width - 700, config.height / 2 - 150, 'Congratulations!\nScore: ' + score + '\nYou did it!', style);
 
             this.createCorrectPageButton()
 

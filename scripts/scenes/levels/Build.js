@@ -8,6 +8,9 @@ class Build extends Phaser.Scene {
         this.level = data.level;
         this.score = data.score;
     }
+    preload(){
+      this.load.audio("drillNoises", "assets/sounds/drills.mp3")
+    }
 
     create() {
         this.background = this.add.image(0, -650, "build_background").setOrigin(0);
@@ -18,6 +21,17 @@ class Build extends Phaser.Scene {
         var style = { font: "50px Arial", fill: "black", boundsAlignH: "center", boundsAlignV: "middle"};
 
         if(correct){
+          var soundConfig ={
+            mute: false,
+            volume: 0.25,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: false,
+            delay: 0
+          }
+          this.audio = this.sound.add("drillNoises");
+          this.audio.play(soundConfig);
             this.build = this.add.sprite(config.width / 3, config.height / 2, "building");
             this.anims.create({
                 key: "build_anim",

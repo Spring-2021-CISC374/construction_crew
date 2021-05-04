@@ -42,6 +42,9 @@ class Calendar extends Phaser.Scene {
         gameObject.y = gameObject.getData("y");
       }
       else {
+        if(self.data.weather.includes(dropZone.getData('zoneid')) && gameObject.getData("jobid") == "Painter"){
+          alert('Oh no! You\'ve scheduled the painter on rainy day');
+        }
         gameObject.x = dropZone.x;
         gameObject.y = dropZone.y;
         dropZone.setData('item', 1);
@@ -115,8 +118,8 @@ class Calendar extends Phaser.Scene {
         .setOrigin(0.5);
       tmp.setData("x", tmp.x);
       tmp.setData("y", tmp.y);
-      tmp.setData('jobid', contractor[i]);
-      tmp.setData('zoneid', -1);
+      tmp.setData("jobid", contractor[i]);
+      tmp.setData("zoneid", -1);
       this.input.setDraggable(tmp);
 
     }
@@ -193,6 +196,7 @@ class Calendar extends Phaser.Scene {
     var score = 0;
     var correct = 5;
     var result = this.get_data();
+    console.log(result);
     var weather = this.data.weather;
     delete result['undefined'];
     //console.log(result);
@@ -201,11 +205,9 @@ class Calendar extends Phaser.Scene {
       return;
     }
 
-    for(i = 0; i < weather.length; i++) {
-      if(result.Painter == weather[i]) {
-        alert('Oh no! You\'ve scheduled the painter on rainy day');
-      }
-    }
+    /*if(weather.includes(result.Painter)) {
+      alert('Oh no! You\'ve scheduled the painter on rainy day');
+    }*/
 
     for (var i = 1; i < levels[level].length; i++) {
       var after = levels[level][i];
@@ -213,6 +215,10 @@ class Calendar extends Phaser.Scene {
       if (result[after] > result[before]) {
         score += correct;
       }
+      var rainy_work = weather.filter(x => Object.values(result).includes(x));
+      score -= correct*rainy_work.length;
+      //if any of the subcontractors in rain storm score -= correct;
+      
     }
     if (result[levels[level][levels[level].length - 1]] > result[levels[level][0]]) {
       score += correct;

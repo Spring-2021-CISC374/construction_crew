@@ -9,7 +9,7 @@ class LevelThree extends Phaser.Scene {
       speechBubble.scale = 0.8
       var instructions = this.add.text(0, 0, "Hammering away to Level 3!" +
       "\n\n2 new subcontracters, for concrete and framing, have been added!" +
-      "\n\nRemember! Start off by scheduling a subcontractor to lay out the \nconcrete for a strong foundation. Then, schedule your framer!" +
+      "\n\nRemember! Start off by scheduling a subcontractor to lay out the \nconcrete for a strong foundation. Then, schedule your farmer!" +
       "\nIt also might be rainier than last time, so be careful \nwhen you schedule your workers!", {
         font: "35px Arial",
         fill: "black",

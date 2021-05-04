@@ -42,8 +42,8 @@ class Calendar extends Phaser.Scene {
         gameObject.y = gameObject.getData("y");
       }
       else {
-        if(self.data.weather.includes(dropZone.getData('zoneid')) && gameObject.getData("jobid") == "Painter"){
-          alert('Oh no! You\'ve scheduled the painter on rainy day');
+        if(self.data.weather.includes(dropZone.getData('zoneid')) /*&& gameObject.getData("jobid") == "Painter"*/){
+          alert('Are you sure you\'d like to schedule ' + gameObject.getData("jobid") + ' on a rainy day?');
         }
         gameObject.x = dropZone.x;
         gameObject.y = dropZone.y;

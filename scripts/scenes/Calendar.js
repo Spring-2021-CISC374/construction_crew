@@ -213,6 +213,9 @@ class Calendar extends Phaser.Scene {
       if (result[after] > result[before]) {
         score += correct;
       }
+
+      //if any of the subcontractors in rain storm score -= correct;
+      
     }
     if (result[levels[level][levels[level].length - 1]] > result[levels[level][0]]) {
       score += correct;

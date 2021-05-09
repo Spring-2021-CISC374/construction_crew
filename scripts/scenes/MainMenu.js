@@ -8,7 +8,7 @@ class MainMenu extends Phaser.Scene {
   create() {
     var soundConfig ={
       mute: false,
-      volume: 0.25,
+      volume: 0.1,
       rate: 1,
       detune: 0,
       seek: 0,
@@ -21,6 +21,7 @@ class MainMenu extends Phaser.Scene {
     this.createTutorialButton()
     this.createStartGameButton()
     this.createFreePlayButton()
+    this.createVolumeButton("volumeOn")
 
   }
 
@@ -87,6 +88,32 @@ class MainMenu extends Phaser.Scene {
 
       container.visible = false; // this hides the button
 
+  }
+
+  createVolumeButton(image) {
+      var bg = this.add.image(config.width - 80, 70, image);
+      bg.scale = 0.5
+
+      // TODO: get the following to work properly
+      bg.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.controlSound());
+
+
+
+  }
+
+  controlSound() {
+    // TODO: get this to work properly
+    // Also get it so the image changes to be volumeOff
+    /*
+    if (this.background.isPlaying) {
+      this.backgroundsound.stop();
+      createVolumeButton("volumeOff")
+    }
+    else {
+      this.backgroundsound.play();
+      createVolumeButton("volumeOn")
+    }
+    */
   }
 
   updateTutorialScene() {

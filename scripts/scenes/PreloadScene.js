@@ -31,6 +31,9 @@ class PreloadScene extends Phaser.Scene {
     this.load.image("rain", "assets/images/rain.png");
     this.load.image("speech", "assets/images/speech.png");
 
+    this.load.image("volumeOn", "assets/images/volumeOn.jpg");
+    this.load.image("volumeOff", "assets/images/volumeOff.png");
+
     this.load.spritesheet("building", "assets/spritesheets/animation_v3.png", {
       frameWidth: 400,
       frameHeight: 400

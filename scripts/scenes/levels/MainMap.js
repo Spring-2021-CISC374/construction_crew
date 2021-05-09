@@ -39,7 +39,7 @@ class MainMap extends Phaser.Scene {
 
     //we want something like this, but new level is not showing up with the updates score
     //we want the score to be sent to main map too after the players get their score in the build scene
-    
+
     this.createButton(config.width/4 - 80, config.height - 140, config.width/4 - 90, config.height - 160, "1", "LevelOne")
 
     if (score >=15) {
@@ -60,7 +60,7 @@ class MainMap extends Phaser.Scene {
     if (score >90) {
       this.createButton(config.width/2 - 120, config.height - 200, config.width/2 - 130, config.height - 220, "7", "LevelSeven")
     }
-    
+
 
   }
 
@@ -70,7 +70,7 @@ class MainMap extends Phaser.Scene {
       var container = this.add.container(15, 10, [ bg, text ]);
       container.setSize(bg.width, bg.height);
       container.setPosition(config.width/2, config.height - 50);
-      container.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.updateToScene("MainMenu"));
+      container.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.updateToMain());
 
       //this doesn't entirely work yet
       container.on('pointerover', function () {
@@ -94,8 +94,12 @@ class MainMap extends Phaser.Scene {
 
   }
 
-  updateToScene(scene) {
-    this.scene.start(scene);
+  updateToMain(e) {
+    this.scene.start("MainMenu");
+  }
+
+  updateToScene(nextScene) {
+    this.scene.start(nextScene);
   }
 
 }

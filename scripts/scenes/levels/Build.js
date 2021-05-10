@@ -53,7 +53,7 @@ class Build extends Phaser.Scene {
 
             this.wrong = this.add.image(config.width / 3 - 100, config.height / 2, "wrong");
 
-            const message = this.add.text(config.width - 850, config.height / 2 - 250, 'Oh no!\nThe schedule did not work.\n\nScore: ' + score + '\nHint: You misplaced ' + hint, style);
+            const message = this.add.text(config.width - 850, config.height / 2 - 250, 'Oh no!\nThe schedule did not work.\n\nScore: ' + score + '\nHint: You misplaced the ' + hint, style);
             
             this.createTryAgainButton()
     

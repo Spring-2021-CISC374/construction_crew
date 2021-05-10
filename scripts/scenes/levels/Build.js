@@ -7,6 +7,7 @@ class Build extends Phaser.Scene {
         this.correct = data.message;
         this.level = data.level;
         this.score = data.score;
+        this.hint = data.hint;
     }
     preload(){
       this.load.audio("drillNoises", "assets/sounds/drills.mp3")
@@ -17,8 +18,9 @@ class Build extends Phaser.Scene {
 
         const correct = this.correct;
         var score = this.score;
+        var hint = this.hint;
 
-        var style = { font: "50px Arial", fill: "black", boundsAlignH: "center", boundsAlignV: "middle"};
+        var style = { font: "50px Arial", fill: "black", align: "center"};
 
         if(correct){
           var soundConfig ={
@@ -49,10 +51,10 @@ class Build extends Phaser.Scene {
 
         }else{
 
-            this.wrong = this.add.image(config.width / 3, config.height / 2, "wrong");
+            this.wrong = this.add.image(config.width / 3 - 100, config.height / 2, "wrong");
 
-            const message = this.add.text(config.width - 700, config.height / 2 - 150, 'Incorrect!\nScore: ' + score + '\nPlease try again!\n', style);
-
+            const message = this.add.text(config.width - 850, config.height / 2 - 250, 'Oh no!\nThe schedule did not work.\n\nScore: ' + score + '\nHint: You misplaced ' + hint, style);
+            
             this.createTryAgainButton()
     
         }
@@ -98,8 +100,6 @@ class Build extends Phaser.Scene {
         bg.clearTint();
       });
     }
-
-
 
     updateToMainScene() {
         this.scene.start("MainMap");

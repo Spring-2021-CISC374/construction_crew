@@ -199,6 +199,9 @@ class Calendar extends Phaser.Scene {
     console.log(result);
     var weather = this.data.weather;
     delete result['undefined'];
+
+    var hint = 'none';
+
     //console.log(result);
     if (Object.keys(result).length != levels[level].length) {
       alert('Please finish all the contractors');
@@ -214,10 +217,12 @@ class Calendar extends Phaser.Scene {
       var before = levels[level][i - 1]
       if (result[after] > result[before]) {
         score += correct;
+      }else{
+        hint = before;
       }
       var rainy_work = weather.filter(x => Object.values(result).includes(x));
       score -= correct*rainy_work.length;
-      //if any of the subcontractors in rain storm score -= correct;
+      
       
     }
     if (result[levels[level][levels[level].length - 1]] > result[levels[level][0]]) {
@@ -230,7 +235,7 @@ class Calendar extends Phaser.Scene {
       localStorage.setItem('score',localStorage.getItem('score')-high_score+score);
       localStorage.setItem(names[level],score);
     }
-    this.scene.start("Build", { message: full_point, level: names[level], score: score });
+    this.scene.start("Build", { message: full_point, level: names[level], score: score, hint: hint });
     console.log(score);
 
   }

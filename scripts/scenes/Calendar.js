@@ -12,7 +12,8 @@ class Calendar extends Phaser.Scene {
     this.data = data;
   }
   create() {
-
+    
+    
     this.background = this.add.image(0, 0, "sunset").setOrigin(0).setScale(3);
 
     var graphics = this.add.graphics();
@@ -34,6 +35,8 @@ class Calendar extends Phaser.Scene {
     this.input.on("dragstart", function (pointer, gameObject) {
       this.children.bringToTop(gameObject);
     }, this);
+    var hint = this.add.image(config.width-50,50,"hint").setScale(0.3);
+    hint.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.testMessageBox());
 
 
     this.input.on('drop', function (pointer, gameObject, dropZone) {
@@ -73,12 +76,23 @@ class Calendar extends Phaser.Scene {
     });
 
     this.input.on('gameobjectover', function (pointer, gameObject) {
-
-      //console.log('over');
+      if(gameObject.getData('jobname')!=null){
+        self.tooltip = self.add.text(pointer.x,pointer.y,gameObject.getData('jobid'),
+        {
+          font: "25px Arial",
+          fill: "#000",
+          backgroundColor: "#f9e305",
+          padding: 10
+        });
+        //console.log(gameObject.getData('jobid'));
+      }
 
     });
     this.input.on('gameobjectout', function (pointer, gameObject) {
-
+      if(gameObject.getData('jobname')!=null){
+        self.tooltip.destroy();
+        //console.log(gameObject.getData('jobid'));
+      }
       //console.log('out');
 
     });
@@ -119,6 +133,7 @@ class Calendar extends Phaser.Scene {
       tmp.setData("x", tmp.x);
       tmp.setData("y", tmp.y);
       tmp.setData("jobid", contractor[i]);
+      tmp.setData("jobname", contractor[i]);
       tmp.setData("zoneid", -1);
       this.input.setDraggable(tmp);
 
@@ -258,5 +273,56 @@ class Calendar extends Phaser.Scene {
   updateToMainMapScene() {
     this.scene.start("MainMap");
   }
+
+
+
+  //box
+  testMessageBox() {
+    this.showMessageBox("Remember! Start off by scheduling a subcontractor to lay out the concrete for a strong foundation. Then, schedule your farmer!" +
+    "\nIt also might be rainier than last time, so be careful when you schedule your workers!", config.width * .7, config.height * .5);
+  }
+  showMessageBox(text, w = 300, h = 300) {
+    if (this.msgBox) {
+        this.msgBox.destroy();
+    }
+    
+    var back = this.add.image(0, 0, "boxBG");
+    //make the close button
+    var closeButton = this.add.image(0, 0, "closeButton");
+    //make a text field
+    var text1 = this.add.text(0, 0, text,{
+      font: "35px Arial",
+      fill: "black",
+      align: "center"
+    });
+    console.log(text1.width);
+    console.log(text1.height);
+    text1.setWordWrapWidth(w * .9);
+    back.displayWidth  = w;
+    back.displayHeight  = h;
+    var msgBox = this.add.container(20, 10, [back,closeButton,text1]);
+    //
+    //set the close button
+    //in the center horizontally
+    //and near the bottom of the box vertically
+    closeButton.x = 0;
+    closeButton.y = h/2 - closeButton.height/2;
+    
+    closeButton.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.hideBox());
+    msgBox.setPosition(config.width / 2 - msgBox.width / 2,config.height / 2 - msgBox.height / 2)
+    //
+    //set the text in the middle of the message box
+    text1.x = -text1.width/2;
+    text1.y = -text1.height/2;
+
+
+    //make a state reference to the messsage box
+    this.msgBox = msgBox;
+  }
+  hideBox() {
+    //destroy the box when the button is pressed
+    console.log(this.msgBox);
+    this.msgBox.destroy(true);
+}
 }
 

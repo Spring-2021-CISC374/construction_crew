@@ -164,6 +164,11 @@ class Calendar extends Phaser.Scene {
       for (var i = 0; i < 7; i++) {
         var zone = this.add.zone(startx + width * i + width / 2, starty * 2 + j * height, width, height).setRectangleDropZone(width, height);
         //graphics.strokeRect(startx + width, i * height + starty, width, height)
+        var weeknum = j + 1
+        this.add.text(startx - 90, starty * 2 + j * height, "Week " + weeknum, {
+          font: "25px Arial",
+          fill: "black"
+        });
 
         if(weather.includes(i)) {
           this.add.image(startx + width * i + width / 2,starty * 2 + j * height, "storm").setScale(.3);
@@ -174,7 +179,6 @@ class Calendar extends Phaser.Scene {
           graphics.fillRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height).setAlpha(0.5);
           zone.disableInteractive();
        }
-
         else {
           graphics.fillStyle(whiteTransparent);
           graphics.fillRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height).setAlpha(0.3);
@@ -185,7 +189,6 @@ class Calendar extends Phaser.Scene {
         this.arr.push(zone);
       }
     }
-
   }
 
   get_data() {

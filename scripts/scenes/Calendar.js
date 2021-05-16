@@ -244,7 +244,7 @@ class Calendar extends Phaser.Scene {
       if(level == 1 && i == levels[level].length - 1 && result[after] == 6){
         score -= 2;
       }else if(level == 2 && i == levels[level].length - 1 && (result[after] == 13 || result[after] == 12)){
-        score -= 2;
+        score -= (result[after] - 11) * 2;
       }
       */
 
@@ -257,6 +257,15 @@ class Calendar extends Phaser.Scene {
       score += correct;
     }
 
+    /* Scoring passing
+    if(level == 1){
+      var full_point = (score >= levels[level].length * correct - 2);
+    }else if(level == 2){
+      var full_point = (score >= levels[level].length * correct - 4);
+    }else{
+      var full_point = (score >= levels[level].length * correct);
+    }
+    */
     var full_point = (score >= levels[level].length * correct);
     var high_score = localStorage.getItem(names[level]) || 0;
     if(score > high_score){
@@ -339,6 +348,6 @@ class Calendar extends Phaser.Scene {
     //destroy the box when the button is pressed
     console.log(this.msgBox);
     this.msgBox.destroy(true);
-}
+  }
 }
 

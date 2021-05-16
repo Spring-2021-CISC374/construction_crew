@@ -10,7 +10,7 @@ class LevelFour extends Phaser.Scene {
       speechBubble.scale = 0.8
       var instructions = this.add.text(0, 0, "Building your way up to Level 4!\n" +
       "\nA bigger project requires a lot more people to get the job done!" +
-      "\nNow, you will be able to schedule 2 subconstractors \nin the same day to complete the project!", {
+      "\nNow, you will be able to schedule subcontractors \nfor 2 weeks to complete the project!", {
         font: "35px Arial",
         fill: "black",
         align: "center"
@@ -39,8 +39,8 @@ class LevelFour extends Phaser.Scene {
       concrete.scale = 0.6;
 
 
-      const farmer = this.add.image(config.width/4*2 + 180, config.height/2 - 245, "farmer");
-      farmer.scale = 0.6;
+      const framer = this.add.image(config.width/4*2 + 180, config.height/2 - 245, "framer");
+      framer.scale = 0.6;
       */
       //ANIMATION FOR CHARACTER
 
@@ -108,8 +108,7 @@ class LevelFour extends Phaser.Scene {
       const leveler = "LevelFour";
       //This needs to be changed
 
-      this.scene.start("Calendar", {contractor: ["Concrete", "Farmer", "Plumber", "Roofer", "Electrician", "Painter"], blocked: [2], level: 4, rows: 2, weather: [5,6]});
+      this.scene.start("Calendar", {contractor: ["Concrete", "Framer", "Plumber", "Roofer", "Electrician", "Painter"], blocked: [2], level: 4, rows: 2, weather: [5,6]});
 
     }
   }
-

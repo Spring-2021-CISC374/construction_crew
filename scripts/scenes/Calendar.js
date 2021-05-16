@@ -208,13 +208,11 @@ class Calendar extends Phaser.Scene {
       return;
     }
 
-    /*if(weather.includes(result.Painter)) {
-      alert('Oh no! You\'ve scheduled the painter on rainy day');
-    }*/
-
     for (var i = 1; i < levels[level].length; i++) {
       var after = levels[level][i];
       var before = levels[level][i - 1]
+
+      
       if (result[after] > result[before]) {
         score += correct;
       }else{
@@ -225,6 +223,9 @@ class Calendar extends Phaser.Scene {
       
       
     }
+
+
+
     if (result[levels[level][levels[level].length - 1]] > result[levels[level][0]]) {
       score += correct;
     }

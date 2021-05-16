@@ -9,10 +9,10 @@ class LevelSix extends Phaser.Scene {
       var speechBubble = this.add.image(0, 0, "speech");
       speechBubble.scale = 0.8
       var instructions = this.add.text(0, 0, "Wow! Level 6 already?!" +
-      "\n\nIt looks like you the weather may be clearing up a little! Yay! \n" +
+      "\n\nIt looks like the weather may be clearing up a little! Yay! \n" +
       "\nBut our project still has a lot of work to be done!" +
-      "\nTo pick up the pace, you can schedule the same subcontractor \non the same day " +
-      "to complete tasks faster!", {
+      "\nNow you have options for different subcontractors. \nBut make sure you " +
+      "don't go over the budget!", {
         font: "35px Arial",
         fill: "black",
         align: "center"
@@ -40,8 +40,8 @@ class LevelSix extends Phaser.Scene {
       const concrete = this.add.image(config.width/4*2 - 50, config.height/2 - 240, "concrete");
       concrete.scale = 0.6;
 
-      const farmer = this.add.image(config.width/4*2 + 180, config.height/2 - 245, "farmer");
-      farmer.scale = 0.6;
+      const framer = this.add.image(config.width/4*2 + 180, config.height/2 - 245, "framer");
+      framer.scale = 0.6;
 
       const storm = this.add.image(config.width/2 + 120, config.height/2 - 190, "storm")
       storm.scale = 0.15
@@ -111,7 +111,6 @@ class LevelSix extends Phaser.Scene {
       const correct = true;
       const leveler = "LevelSix";
       //This needs to be changed
-      this.scene.start("Calendar", {contractor: ["Concrete", "Farmer", "Plumber", "Roofer", "Electrician", "Painter"], blocked: [2], level: 3 , rows: 2, weather: [0, 4, 5]});
+      this.scene.start("Calendar", {contractor: ["Concrete", "Framer", "Plumber", "Roofer", "Electrician", "Painter"], blocked: [2], level: 3 , rows: 2, weather: [0, 4, 5]});
     }
   }
-

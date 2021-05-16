@@ -20,7 +20,7 @@ class PreloadScene extends Phaser.Scene {
 
     this.load.image("concrete", "assets/images/concrete.png");
     this.load.image("electrician", "assets/images/electrician.png");
-    this.load.image("farmer", "assets/images/farmer.png");
+    this.load.image("framer", "assets/images/framer.png");
     this.load.image("painter", "assets/images/painter.png");
     this.load.image("plumber", "assets/images/plumber.png");
     this.load.image("roofer", "assets/images/roofer.png");
@@ -30,9 +30,20 @@ class PreloadScene extends Phaser.Scene {
     this.load.image("storm", "assets/images/storm.png");
     this.load.image("rain", "assets/images/rain.png");
     this.load.image("speech", "assets/images/speech.png");
+    this.load.image("hint", "assets/images/hint.png");
+    this.load.image("boxBG", "assets/images/boxBG.png");
+    this.load.image("closeButton", "assets/images/closeButton.png");
 
     this.load.image("volumeOn", "assets/images/volumeOn.jpg");
     this.load.image("volumeOff", "assets/images/volumeOff.png");
+
+    this.load.image("levelOneHint", "assets/images/levelOneHint.jpg");
+    this.load.image("levelTwoHint", "assets/images/levelTwoHint.jpg");
+    this.load.image("levelThreeHint", "assets/images/levelThreeHint.jpg");
+    this.load.image("levelFourHint", "assets/images/levelFourHint.jpg");
+    this.load.image("levelFiveHint", "assets/images/levelFiveHint.jpg");
+    this.load.image("levelSixHint", "assets/images/levelSixHint.jpg");
+    this.load.image("levelSevenHint", "assets/images/levelSevenHint.jpg");
 
     this.load.spritesheet("building", "assets/spritesheets/animation_v3.png", {
       frameWidth: 400,

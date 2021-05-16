@@ -13,6 +13,7 @@ class Calendar extends Phaser.Scene {
   }
   create() {
 
+
     this.background = this.add.image(0, 0, "sunset").setOrigin(0).setScale(3);
 
     var graphics = this.add.graphics();
@@ -26,7 +27,7 @@ class Calendar extends Phaser.Scene {
     var container = this.add.container(20, 10, [bg, text]);
 
     container.setSize(bg.width, bg.height);
-    container.setPosition(config.width - 250, config.height - 150);
+    container.setPosition(config.width - 250, config.height - 140);
     container.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.score(this.data.level));
     this.arr = [];
     this.gen_list(this.data.contractor);
@@ -34,6 +35,8 @@ class Calendar extends Phaser.Scene {
     this.input.on("dragstart", function (pointer, gameObject) {
       this.children.bringToTop(gameObject);
     }, this);
+    var hint = this.add.image(config.width-50,50,"hint").setScale(0.3);
+    hint.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.testMessageBox());
 
 
     this.input.on('drop', function (pointer, gameObject, dropZone) {
@@ -73,12 +76,23 @@ class Calendar extends Phaser.Scene {
     });
 
     this.input.on('gameobjectover', function (pointer, gameObject) {
-
-      //console.log('over');
+      if(gameObject.getData('jobname')!=null){
+        self.tooltip = self.add.text(pointer.x,pointer.y,gameObject.getData('jobid'),
+        {
+          font: "25px Arial",
+          fill: "#000",
+          backgroundColor: "#f9e305",
+          padding: 10
+        });
+        //console.log(gameObject.getData('jobid'));
+      }
 
     });
     this.input.on('gameobjectout', function (pointer, gameObject) {
-
+      if(gameObject.getData('jobname')!=null){
+        self.tooltip.destroy();
+        //console.log(gameObject.getData('jobid'));
+      }
       //console.log('out');
 
     });
@@ -92,7 +106,7 @@ class Calendar extends Phaser.Scene {
     this.arr[zoneid].setData('jobid', -1)
   }
   gen_list(contractor) {
-    var scales = { "Concrete": 1, "Farmer": 1, "Plumber": 0.2, "Roofer": 0.5, "Electrician": .5, "Painter": 0.05 };
+    var scales = { "Concrete": 1, "Framer": 1, "Plumber": 0.2, "Roofer": 0.5, "Electrician": .5, "Painter": 0.05 };
 
     var startx = 525;
     var starty = 600;
@@ -119,6 +133,7 @@ class Calendar extends Phaser.Scene {
       tmp.setData("x", tmp.x);
       tmp.setData("y", tmp.y);
       tmp.setData("jobid", contractor[i]);
+      tmp.setData("jobname", contractor[i]);
       tmp.setData("zoneid", -1);
       this.input.setDraggable(tmp);
 
@@ -187,13 +202,13 @@ class Calendar extends Phaser.Scene {
     });
     return res;
   }
-  
+
   score(level) {
     level -= 1;
     var levelone = ["Roofer", "Electrician", "Painter"];
     var leveltwo = ["Plumber", "Roofer", "Electrician", "Painter"];
-    var levelthree = ["Concrete", "Farmer", "Plumber", "Roofer", "Electrician", "Painter"];
-    var levelfour = ["Concrete", "Farmer", "Plumber", "Roofer", "Electrician", "Painter"];
+    var levelthree = ["Concrete", "Framer", "Plumber", "Roofer", "Electrician", "Painter"];
+    var levelfour = ["Concrete", "Framer", "Plumber", "Roofer", "Electrician", "Painter"];
     var levels = [levelone, leveltwo, levelthree, levelfour];
     var names = ['LevelOne', 'LevelTwo', 'LevelThree', 'LevelFour'];
     var score = 0;
@@ -202,27 +217,33 @@ class Calendar extends Phaser.Scene {
     console.log(result);
     var weather = this.data.weather;
     delete result['undefined'];
+
+    var hint = 'none';
+
     //console.log(result);
     if (Object.keys(result).length != levels[level].length) {
       alert('Please finish all the contractors');
       return;
     }
 
-    /*if(weather.includes(result.Painter)) {
-      alert('Oh no! You\'ve scheduled the painter on rainy day');
-    }*/
-
     for (var i = 1; i < levels[level].length; i++) {
       var after = levels[level][i];
       var before = levels[level][i - 1]
+
+
       if (result[after] > result[before]) {
         score += correct;
+      }else{
+        hint = before;
       }
       var rainy_work = weather.filter(x => Object.values(result).includes(x));
       score -= correct*rainy_work.length;
-      //if any of the subcontractors in rain storm score -= correct;
-      
+
+
     }
+
+
+
     if (result[levels[level][levels[level].length - 1]] > result[levels[level][0]]) {
       score += correct;
     }
@@ -233,7 +254,7 @@ class Calendar extends Phaser.Scene {
       localStorage.setItem('score',localStorage.getItem('score')-high_score+score);
       localStorage.setItem(names[level],score);
     }
-    this.scene.start("Build", { message: full_point, level: names[level], score: score });
+    this.scene.start("Build", { message: full_point, level: names[level], score: score, hint: hint });
     console.log(score);
 
   }
@@ -245,7 +266,7 @@ class Calendar extends Phaser.Scene {
     var container = this.add.container(20, 10, [bg, text]);
 
     container.setSize(bg.width, bg.height);
-    container.setPosition(250, config.height - 150);
+    container.setPosition(250, config.height - 140);
     container.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.updateToMainMapScene());
 
     //this doesn't entirely work yet
@@ -261,5 +282,83 @@ class Calendar extends Phaser.Scene {
   updateToMainMapScene() {
     this.scene.start("MainMap");
   }
-}
 
+
+
+  //box
+  testMessageBox() {
+
+    this.showMessageBox("", config.width/2, config.height* .45);
+
+  }
+  showMessageBox(text, w = 300 , h = 300) {
+    if (this.msgBox) {
+        this.msgBox.destroy();
+    }
+
+    var lev;
+    switch (this.data.level) {
+      case 1:
+        lev = "levelOneHint";
+        break;
+      case 2:
+        lev = "levelTwoHint";
+        break;
+      case 3:
+        lev = "levelThreeHint";
+        break;
+      case 4:
+        lev = "levelFourHint";
+        break;
+      case 5:
+        lev = "levelFiveHint";
+        break;
+      case 6:
+        lev = "levelSixHint";
+        break;
+      default:
+        lev = "levelSevenHint";
+        break;
+    }
+
+    var back = this.add.image(0, 0, lev);
+    //make the close button
+    var closeButton = this.add.image(0, 0, "closeButton");
+    //make a text field
+    var text1 = this.add.text(0, 0, text,{
+      font: "35px Arial",
+      fill: "black",
+      align: "center"
+    });
+    console.log(text1.width);
+    console.log(text1.height);
+    text1.setWordWrapWidth(w * .9);
+    back.displayWidth  = w;
+    back.displayHeight  = h;
+    var msgBox = this.add.container(0, 0, [back,closeButton,text1]);
+    //
+    //set the close button
+    //in the center horizontally
+    //and near the bottom of the box vertically
+    closeButton.x = w/2 - 20;
+    closeButton.y = 0 - h/2 +20;
+    closeButton.scale = .2
+
+    closeButton.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.hideBox());
+    msgBox.setPosition(config.width / 2 - msgBox.width / 2,config.height / 2 - msgBox.height / 2)
+    msgBox.st
+    //
+    //set the text in the middle of the message box
+    text1.x = -text1.width/2;
+    text1.y = -text1.height/2;
+
+
+    //make a state reference to the messsage box
+    this.msgBox = msgBox;
+  }
+  hideBox() {
+    //destroy the box when the button is pressed
+    console.log(this.msgBox);
+    this.msgBox.destroy(true);
+}
+}

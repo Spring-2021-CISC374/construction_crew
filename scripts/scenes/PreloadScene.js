@@ -20,7 +20,7 @@ class PreloadScene extends Phaser.Scene {
 
     this.load.image("concrete", "assets/images/concrete.png");
     this.load.image("electrician", "assets/images/electrician.png");
-    this.load.image("farmer", "assets/images/farmer.png");
+    this.load.image("framer", "assets/images/framer.png");
     this.load.image("painter", "assets/images/painter.png");
     this.load.image("plumber", "assets/images/plumber.png");
     this.load.image("roofer", "assets/images/roofer.png");

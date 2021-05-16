@@ -9,7 +9,7 @@ class LevelThree extends Phaser.Scene {
       speechBubble.scale = 0.8
       var instructions = this.add.text(0, 0, "Hammering away to Level 3!" +
       "\n\n2 new subcontracters, for concrete and framing, have been added!" +
-      "\n\nRemember! Start off by scheduling a subcontractor to lay out the \nconcrete for a strong foundation. Then, schedule your farmer!" +
+      "\n\nRemember! Start off by scheduling a subcontractor to lay out the \nconcrete for a strong foundation. Then, schedule your framer!" +
       "\nIt also might be rainier than last time, so be careful \nwhen you schedule your workers!", {
         font: "35px Arial",
         fill: "black",
@@ -39,8 +39,8 @@ class LevelThree extends Phaser.Scene {
       const concrete = this.add.image(config.width/4*2 - 50, config.height/2 - 240, "concrete");
       concrete.scale = 0.6;
 
-      const farmer = this.add.image(config.width/4*2 + 180, config.height/2 - 245, "farmer");
-      farmer.scale = 0.6;
+      const framer = this.add.image(config.width/4*2 + 180, config.height/2 - 245, "framer");
+      framer.scale = 0.6;
       //ANIMATION FOR CHARACTER
 
       this.character = this.add.sprite(config.width/8, config.height / 2, "character");
@@ -105,6 +105,6 @@ class LevelThree extends Phaser.Scene {
     updateToCalendar() {
       const correct = true;
       const leveler = "LevelThree";
-      this.scene.start("Calendar", {contractor: ["Concrete", "Farmer", "Plumber", "Roofer", "Electrician", "Painter"], blocked: [2], level: 3, rows: 2, weather: [3, 4]});
+      this.scene.start("Calendar", {contractor: ["Concrete", "Framer", "Plumber", "Roofer", "Electrician", "Painter"], blocked: [2], level: 3, rows: 2, weather: [3, 4]});
     }
   }

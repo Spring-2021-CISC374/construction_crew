@@ -12,8 +12,8 @@ class Calendar extends Phaser.Scene {
     this.data = data;
   }
   create() {
-    
-    
+
+
     this.background = this.add.image(0, 0, "sunset").setOrigin(0).setScale(3);
 
     var graphics = this.add.graphics();
@@ -106,7 +106,7 @@ class Calendar extends Phaser.Scene {
     this.arr[zoneid].setData('jobid', -1)
   }
   gen_list(contractor) {
-    var scales = { "Concrete": 1, "Farmer": 1, "Plumber": 0.2, "Roofer": 0.5, "Electrician": .5, "Painter": 0.05 };
+    var scales = { "Concrete": 1, "Framer": 1, "Plumber": 0.2, "Roofer": 0.5, "Electrician": .5, "Painter": 0.05 };
 
     var startx = 525;
     var starty = 600;
@@ -164,7 +164,7 @@ class Calendar extends Phaser.Scene {
       for (var i = 0; i < 7; i++) {
         var zone = this.add.zone(startx + width * i + width / 2, starty * 2 + j * height, width, height).setRectangleDropZone(width, height);
         //graphics.strokeRect(startx + width, i * height + starty, width, height)
-        
+
         if(weather.includes(i)) {
           this.add.image(startx + width * i + width / 2,starty * 2 + j * height, "storm").setScale(.3);
         }
@@ -199,13 +199,13 @@ class Calendar extends Phaser.Scene {
     });
     return res;
   }
-  
+
   score(level) {
     level -= 1;
     var levelone = ["Roofer", "Electrician", "Painter"];
     var leveltwo = ["Plumber", "Roofer", "Electrician", "Painter"];
-    var levelthree = ["Concrete", "Farmer", "Plumber", "Roofer", "Electrician", "Painter"];
-    var levelfour = ["Concrete", "Farmer", "Plumber", "Roofer", "Electrician", "Painter"];
+    var levelthree = ["Concrete", "Framer", "Plumber", "Roofer", "Electrician", "Painter"];
+    var levelfour = ["Concrete", "Framer", "Plumber", "Roofer", "Electrician", "Painter"];
     var levels = [levelone, leveltwo, levelthree, levelfour];
     var names = ['LevelOne', 'LevelTwo', 'LevelThree', 'LevelFour'];
     var score = 0;
@@ -227,7 +227,7 @@ class Calendar extends Phaser.Scene {
       var after = levels[level][i];
       var before = levels[level][i - 1]
 
-      
+
       if (result[after] > result[before]) {
         score += correct;
       }else{
@@ -235,8 +235,8 @@ class Calendar extends Phaser.Scene {
       }
       var rainy_work = weather.filter(x => Object.values(result).includes(x));
       score -= correct*rainy_work.length;
-      
-      
+
+
     }
 
 
@@ -284,14 +284,14 @@ class Calendar extends Phaser.Scene {
 
   //box
   testMessageBox() {
-    this.showMessageBox("Remember! Start off by scheduling a subcontractor to lay out the concrete for a strong foundation. Then, schedule your farmer!" +
+    this.showMessageBox("Remember! Start off by scheduling a subcontractor to lay out the concrete for a strong foundation. Then, schedule your framer!" +
     "\nIt also might be rainier than last time, so be careful when you schedule your workers!", config.width * .7, config.height * .5);
   }
   showMessageBox(text, w = 300, h = 300) {
     if (this.msgBox) {
         this.msgBox.destroy();
     }
-    
+
     var back = this.add.image(0, 0, "boxBG");
     //make the close button
     var closeButton = this.add.image(0, 0, "closeButton");
@@ -313,7 +313,7 @@ class Calendar extends Phaser.Scene {
     //and near the bottom of the box vertically
     closeButton.x = 0;
     closeButton.y = h/2 - closeButton.height/2;
-    
+
     closeButton.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.hideBox());
     msgBox.setPosition(config.width / 2 - msgBox.width / 2,config.height / 2 - msgBox.height / 2)
     //
@@ -331,4 +331,3 @@ class Calendar extends Phaser.Scene {
     this.msgBox.destroy(true);
 }
 }
-

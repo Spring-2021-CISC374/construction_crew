@@ -206,13 +206,19 @@ class Calendar extends Phaser.Scene {
     var leveltwo = ["Plumber", "Roofer", "Electrician", "Painter"];
     var levelthree = ["Concrete", "Farmer", "Plumber", "Roofer", "Electrician", "Painter"];
     var levelfour = ["Concrete", "Farmer", "Plumber", "Roofer", "Electrician", "Painter"];
-    var levels = [levelone, leveltwo, levelthree, levelfour];
-    var names = ['LevelOne', 'LevelTwo', 'LevelThree', 'LevelFour'];
+    var levelfive = ["Concrete", "Farmer", "Plumber", "Roofer", "Electrician", "Painter"];
+    var levelsix = ["Concrete", "Farmer", "Plumber", "Roofer", "Electrician", "Painter"];
+    var levelseven = ["Concrete", "Farmer", "Plumber", "Roofer", "Electrician", "Painter"];
+    var levels = [levelone, leveltwo, levelthree, levelfour, levelfive, levelsix, levelseven];
+    var names = ['LevelOne', 'LevelTwo', 'LevelThree', 'LevelFour', 'LevelFive', 'LevelSix', 'LevelSeven'];
     var score = 0;
     var correct = 5;
     var result = this.get_data();
     console.log(result);
     var weather = this.data.weather;
+    
+    var block = this.data.blocked;
+
     delete result['undefined'];
 
     var hint = 'none';
@@ -223,29 +229,33 @@ class Calendar extends Phaser.Scene {
       return;
     }
 
+
     for (var i = 1; i < levels[level].length; i++) {
       var after = levels[level][i];
       var before = levels[level][i - 1]
 
-      
       if (result[after] > result[before]) {
         score += correct;
       }else{
         hint = before;
       }
+
+      if(level == 1 && i == levels[level].length - 1 && result[after] == 6){
+        score -= 2;
+      }else if(level == 2 && i == levels[level].length - 1 && (result[after] == 13 || result[after] == 12)){
+        score -= 2;
+      }
+
       var rainy_work = weather.filter(x => Object.values(result).includes(x));
       score -= correct*rainy_work.length;
       
-      
     }
-
-
 
     if (result[levels[level][levels[level].length - 1]] > result[levels[level][0]]) {
       score += correct;
     }
 
-    var full_point = (score == levels[level].length * correct);
+    var full_point = (score >= levels[level].length * correct - 4);
     var high_score = localStorage.getItem(names[level]) || 0;
     if(score > high_score){
       localStorage.setItem('score',localStorage.getItem('score')-high_score+score);

@@ -37,6 +37,14 @@ class PreloadScene extends Phaser.Scene {
     this.load.image("volumeOn", "assets/images/volumeOn.jpg");
     this.load.image("volumeOff", "assets/images/volumeOff.png");
 
+    this.load.image("levelOneHint", "assets/images/levelOneHint.jpg");
+    this.load.image("levelTwoHint", "assets/images/levelTwoHint.jpg");
+    this.load.image("levelThreeHint", "assets/images/levelThreeHint.jpg");
+    this.load.image("levelFourHint", "assets/images/levelFourHint.jpg");
+    this.load.image("levelFiveHint", "assets/images/levelFiveHint.jpg");
+    this.load.image("levelSixHint", "assets/images/levelSixHint.jpg");
+    this.load.image("levelSevenHint", "assets/images/levelSevenHint.jpg");
+
     this.load.spritesheet("building", "assets/spritesheets/animation_v3.png", {
       frameWidth: 400,
       frameHeight: 400

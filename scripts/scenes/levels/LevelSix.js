@@ -11,7 +11,7 @@ class LevelSix extends Phaser.Scene {
       var instructions = this.add.text(0, 0, "Wow! Level 6 already?!" +
       "\n\nIt looks like the weather may be clearing up a little! Yay! \n" +
       "\nBut our project still has a lot of work to be done!" +
-      "\nNow you have options for different subcontractors. \But make sure you " +
+      "\nNow you have options for different subcontractors. \nBut make sure you " +
       "don't go over the budget!", {
         font: "35px Arial",
         fill: "black",

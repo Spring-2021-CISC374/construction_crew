@@ -10,8 +10,8 @@ class LevelSeven extends Phaser.Scene {
       speechBubble.scale = 0.8
       var instructions = this.add.text(0, 0, "LAST UP, Level 7!!!" +
       "\n\nYou've been doing great so far! Keep it up!" +
-      "\n\nThe storm is still coming in strong, and this project has to be \ncompleted!! Schedule subcontractors for the" +
-      "\nthe next 2 weeks to complete the building! Good luck!", {
+      "\n\nThe storm is still coming in strong, and this project has to be \ncompleted!! Schedule subcontractors for the next" +
+      "\n2 weeks to complete the building! Good luck!", {
         font: "35px Arial",
         fill: "black",
         align: "center"

@@ -284,15 +284,41 @@ class Calendar extends Phaser.Scene {
 
   //box
   testMessageBox() {
-    this.showMessageBox("Remember! Start off by scheduling a subcontractor to lay out the concrete for a strong foundation. Then, schedule your framer!" +
-    "\nIt also might be rainier than last time, so be careful when you schedule your workers!", config.width * .7, config.height * .5);
+
+    this.showMessageBox("", config.width/2, config.height* .45);
+
   }
-  showMessageBox(text, w = 300, h = 300) {
+  showMessageBox(text, w = 300 , h = 300) {
     if (this.msgBox) {
         this.msgBox.destroy();
     }
 
-    var back = this.add.image(0, 0, "boxBG");
+    var lev;
+    switch (this.data.level) {
+      case 1:
+        lev = "levelOneHint";
+        break;
+      case 2:
+        lev = "levelTwoHint";
+        break;
+      case 3:
+        lev = "levelThreeHint";
+        break;
+      case 4:
+        lev = "levelFourHint";
+        break;
+      case 5:
+        lev = "levelFiveHint";
+        break;
+      case 6:
+        lev = "levelSixHint";
+        break;
+      default:
+        lev = "levelSevenHint";
+        break;
+    }
+
+    var back = this.add.image(0, 0, lev);
     //make the close button
     var closeButton = this.add.image(0, 0, "closeButton");
     //make a text field
@@ -306,16 +332,18 @@ class Calendar extends Phaser.Scene {
     text1.setWordWrapWidth(w * .9);
     back.displayWidth  = w;
     back.displayHeight  = h;
-    var msgBox = this.add.container(20, 10, [back,closeButton,text1]);
+    var msgBox = this.add.container(0, 0, [back,closeButton,text1]);
     //
     //set the close button
     //in the center horizontally
     //and near the bottom of the box vertically
-    closeButton.x = 0;
-    closeButton.y = h/2 - closeButton.height/2;
+    closeButton.x = w/2 - 20;
+    closeButton.y = 0 - h/2 +20;
+    closeButton.scale = .2
 
     closeButton.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.hideBox());
     msgBox.setPosition(config.width / 2 - msgBox.width / 2,config.height / 2 - msgBox.height / 2)
+    msgBox.st
     //
     //set the text in the middle of the message box
     text1.x = -text1.width/2;

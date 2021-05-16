@@ -27,7 +27,7 @@ class Calendar extends Phaser.Scene {
     var container = this.add.container(20, 10, [bg, text]);
 
     container.setSize(bg.width, bg.height);
-    container.setPosition(config.width - 250, config.height - 150);
+    container.setPosition(config.width - 250, config.height - 140);
     container.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.score(this.data.level));
     this.arr = [];
     this.gen_list(this.data.contractor);
@@ -263,7 +263,7 @@ class Calendar extends Phaser.Scene {
     var container = this.add.container(20, 10, [bg, text]);
 
     container.setSize(bg.width, bg.height);
-    container.setPosition(250, config.height - 150);
+    container.setPosition(250, config.height - 140);
     container.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.updateToMainMapScene());
 
     //this doesn't entirely work yet

@@ -240,11 +240,13 @@ class Calendar extends Phaser.Scene {
         hint = before;
       }
 
+      /* -2 for each open slot
       if(level == 1 && i == levels[level].length - 1 && result[after] == 6){
         score -= 2;
       }else if(level == 2 && i == levels[level].length - 1 && (result[after] == 13 || result[after] == 12)){
         score -= 2;
       }
+      */
 
       var rainy_work = weather.filter(x => Object.values(result).includes(x));
       score -= correct*rainy_work.length;
@@ -255,7 +257,7 @@ class Calendar extends Phaser.Scene {
       score += correct;
     }
 
-    var full_point = (score >= levels[level].length * correct - 4);
+    var full_point = (score >= levels[level].length * correct);
     var high_score = localStorage.getItem(names[level]) || 0;
     if(score > high_score){
       localStorage.setItem('score',localStorage.getItem('score')-high_score+score);
@@ -289,8 +291,6 @@ class Calendar extends Phaser.Scene {
   updateToMainMapScene() {
     this.scene.start("MainMap");
   }
-
-
 
   //box
   testMessageBox() {

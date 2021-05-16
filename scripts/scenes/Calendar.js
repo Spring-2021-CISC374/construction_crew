@@ -12,8 +12,8 @@ class Calendar extends Phaser.Scene {
     this.data = data;
   }
   create() {
-    
-    
+
+
     this.background = this.add.image(0, 0, "sunset").setOrigin(0).setScale(3);
 
     var graphics = this.add.graphics();
@@ -106,7 +106,7 @@ class Calendar extends Phaser.Scene {
     this.arr[zoneid].setData('jobid', -1)
   }
   gen_list(contractor) {
-    var scales = { "Concrete": 1, "Farmer": 1, "Plumber": 0.2, "Roofer": 0.5, "Electrician": .5, "Painter": 0.05 };
+    var scales = { "Concrete": 1, "Framer": 1, "Plumber": 0.2, "Roofer": 0.5, "Electrician": .5, "Painter": 0.05 };
 
     var startx = 525;
     var starty = 600;
@@ -164,7 +164,12 @@ class Calendar extends Phaser.Scene {
       for (var i = 0; i < 7; i++) {
         var zone = this.add.zone(startx + width * i + width / 2, starty * 2 + j * height, width, height).setRectangleDropZone(width, height);
         //graphics.strokeRect(startx + width, i * height + starty, width, height)
-        
+        var weeknum = j + 1
+        this.add.text(startx - 90, starty * 2 + j * height, "Week " + weeknum, {
+          font: "25px Arial",
+          fill: "black"
+        });
+
         if(weather.includes(i)) {
           this.add.image(startx + width * i + width / 2,starty * 2 + j * height, "storm").setScale(.3);
         }
@@ -174,7 +179,6 @@ class Calendar extends Phaser.Scene {
           graphics.fillRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height).setAlpha(0.5);
           zone.disableInteractive();
        }
-
         else {
           graphics.fillStyle(whiteTransparent);
           graphics.fillRect(zone.x - zone.input.hitArea.width / 2, zone.y - zone.input.hitArea.height / 2, zone.input.hitArea.width, zone.input.hitArea.height).setAlpha(0.3);
@@ -185,7 +189,6 @@ class Calendar extends Phaser.Scene {
         this.arr.push(zone);
       }
     }
-
   }
 
   get_data() {
@@ -199,7 +202,7 @@ class Calendar extends Phaser.Scene {
     });
     return res;
   }
-  
+
   score(level) {
     level -= 1;
     var levelone = ["Roofer", "Electrician", "Painter"];
@@ -250,7 +253,7 @@ class Calendar extends Phaser.Scene {
 
       var rainy_work = weather.filter(x => Object.values(result).includes(x));
       score -= correct*rainy_work.length;
-      
+
     }
 
     if (result[levels[level][levels[level].length - 1]] > result[levels[level][0]]) {
@@ -303,15 +306,41 @@ class Calendar extends Phaser.Scene {
 
   //box
   testMessageBox() {
-    this.showMessageBox("Remember! Start off by scheduling a subcontractor to lay out the concrete for a strong foundation. Then, schedule your farmer!" +
-    "\nIt also might be rainier than last time, so be careful when you schedule your workers!", config.width * .7, config.height * .5);
+
+    this.showMessageBox("", config.width/2, config.height* .45);
+
   }
-  showMessageBox(text, w = 300, h = 300) {
+  showMessageBox(text, w = 300 , h = 300) {
     if (this.msgBox) {
         this.msgBox.destroy();
     }
-    
-    var back = this.add.image(0, 0, "boxBG");
+
+    var lev;
+    switch (this.data.level) {
+      case 1:
+        lev = "levelOneHint";
+        break;
+      case 2:
+        lev = "levelTwoHint";
+        break;
+      case 3:
+        lev = "levelThreeHint";
+        break;
+      case 4:
+        lev = "levelFourHint";
+        break;
+      case 5:
+        lev = "levelFiveHint";
+        break;
+      case 6:
+        lev = "levelSixHint";
+        break;
+      default:
+        lev = "levelSevenHint";
+        break;
+    }
+
+    var back = this.add.image(0, 0, lev);
     //make the close button
     var closeButton = this.add.image(0, 0, "closeButton");
     //make a text field
@@ -325,16 +354,18 @@ class Calendar extends Phaser.Scene {
     text1.setWordWrapWidth(w * .9);
     back.displayWidth  = w;
     back.displayHeight  = h;
-    var msgBox = this.add.container(20, 10, [back,closeButton,text1]);
+    var msgBox = this.add.container(0, 0, [back,closeButton,text1]);
     //
     //set the close button
     //in the center horizontally
     //and near the bottom of the box vertically
-    closeButton.x = 0;
-    closeButton.y = h/2 - closeButton.height/2;
-    
+    closeButton.x = w/2 - 20;
+    closeButton.y = 0 - h/2 +20;
+    closeButton.scale = .2
+
     closeButton.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.hideBox());
     msgBox.setPosition(config.width / 2 - msgBox.width / 2,config.height / 2 - msgBox.height / 2)
+    msgBox.st
     //
     //set the text in the middle of the message box
     text1.x = -text1.width/2;
@@ -350,4 +381,3 @@ class Calendar extends Phaser.Scene {
     this.msgBox.destroy(true);
   }
 }
-

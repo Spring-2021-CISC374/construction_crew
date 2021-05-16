@@ -96,4 +96,3 @@ class LevelOne extends Phaser.Scene {
     this.scene.start("Calendar", {contractor: ["Roofer","Painter","Electrician"], blocked: [0,2,3,6], level: 1, rows: 1, weather: []});
   }
 }
-

@@ -30,6 +30,9 @@ class PreloadScene extends Phaser.Scene {
     this.load.image("storm", "assets/images/storm.png");
     this.load.image("rain", "assets/images/rain.png");
     this.load.image("speech", "assets/images/speech.png");
+    this.load.image("hint", "assets/images/hint.png");
+    this.load.image("boxBG", "assets/images/boxBG.png");
+    this.load.image("closeButton", "assets/images/closeButton.png");
 
     this.load.image("volumeOn", "assets/images/volumeOn.jpg");
     this.load.image("volumeOff", "assets/images/volumeOff.png");

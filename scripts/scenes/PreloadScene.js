@@ -34,7 +34,7 @@ class PreloadScene extends Phaser.Scene {
     this.load.image("boxBG", "assets/images/boxBG.png");
     this.load.image("closeButton", "assets/images/closeButton.png");
 
-    this.load.image("volumeOn", "assets/images/volumeOn.jpg");
+    this.load.image("volumeOn", "assets/images/volumeOn.png");
     this.load.image("volumeOff", "assets/images/volumeOff.png");
 
     this.load.spritesheet("building", "assets/spritesheets/animation_v3.png", {

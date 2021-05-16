@@ -6,6 +6,11 @@ var config = {
   type: Phaser.CANVAS,
   width: gameWidth,
   height: gameHeight,
+  scale: {
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_HORIZONTALLY
+    },
+  autoRound: false,
   backgroundColor: 0xffffff,
   scene: [PreloadScene, MainMenu, Tutorial, Calendar, Score, MainMap, Build,
           LevelOne, LevelTwo, LevelThree, LevelFour, LevelFive, LevelSix,

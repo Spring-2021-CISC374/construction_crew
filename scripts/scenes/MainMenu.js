@@ -5,7 +5,7 @@ class MainMenu extends Phaser.Scene {
   preload(){
     this.load.audio("noise", "assets/sounds/background_sound.mp3")
   }
-  
+
   create() {
     this.game.sound.stopAll();
     var soundConfig ={
@@ -26,7 +26,7 @@ class MainMenu extends Phaser.Scene {
     this.createVolumeButton("volumeOn")
 
   }
-  
+
   createTutorialButton() {
       var bg = this.add.image(0, 0, "tutorial_button");
       var text = this.add.text(0, 0, "");
@@ -93,7 +93,7 @@ class MainMenu extends Phaser.Scene {
   }
 
   createVolumeButton(image) {
-      var soundButton = this.add.image(config.width - 80, 70, image);
+      var soundButton = this.add.image(config.width - 80, config.height -80, image);
       this.soundButton = soundButton;
       soundButton.scale = 0.5
       // TODO: get the following to work properly
@@ -119,7 +119,7 @@ class MainMenu extends Phaser.Scene {
     }
     // TODO: get this to work properly
     // Also get it so the image changes to be volumeOff
-    
+
     /*if (this.background.isPlaying) {
       this.backgroundsound.stop();
       createVolumeButton("volumeOff")

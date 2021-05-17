@@ -5,7 +5,9 @@ class MainMenu extends Phaser.Scene {
   preload(){
     this.load.audio("noise", "assets/sounds/background_sound.mp3")
   }
+
   create() {
+    this.game.sound.stopAll();
     var soundConfig ={
       mute: false,
       volume: 0.1,
@@ -91,29 +93,42 @@ class MainMenu extends Phaser.Scene {
   }
 
   createVolumeButton(image) {
-      var bg = this.add.image(config.width - 80, 70, image);
-      bg.scale = 0.5
-
+      var soundButton = this.add.image(config.width - 80, config.height -80, image);
+      this.soundButton = soundButton;
+      soundButton.scale = 0.5
       // TODO: get the following to work properly
-      bg.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.controlSound());
+      soundButton.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.controlSound());
 
 
 
   }
 
   controlSound() {
+    if(this.backgroundsound.isPlaying){
+      this.backgroundsound.stop();
+      //this.backgroundsound.volume = 0;
+      this.soundButton.destroy();
+      //this.scene.update();
+      this.createVolumeButton("volumeOff");
+    }
+    else{
+      this.backgroundsound.play();
+      //this.backgroundsound.volume = 0.1;
+      this.soundButton.destroy();
+      this.createVolumeButton("volumeOn")
+    }
     // TODO: get this to work properly
     // Also get it so the image changes to be volumeOff
-    /*
-    if (this.background.isPlaying) {
+
+    /*if (this.background.isPlaying) {
       this.backgroundsound.stop();
       createVolumeButton("volumeOff")
     }
     else {
       this.backgroundsound.play();
       createVolumeButton("volumeOn")
-    }
-    */
+    }*/
+    //this.backgroundsound.stop();
   }
 
   updateTutorialScene() {

@@ -283,12 +283,18 @@ class Calendar extends Phaser.Scene {
     var leveltwo = ["Plumber", "Roofer", "Electrician", "Painter"];
     var levelthree = ["Concrete", "Framer", "Plumber", "Roofer", "Electrician", "Painter"];
     var levelfour = ["Concrete", "Framer", "Plumber", "Roofer", "Electrician", "Painter"];
-    var levels = [levelone, leveltwo, levelthree, levelfour];
-    var names = ['LevelOne', 'LevelTwo', 'LevelThree', 'LevelFour'];
+    var levelfive = ["Concrete", "Framer", "Plumber", "Roofer", "Electrician", "Painter"];
+    var levelsix = ["Concrete", "Framer", "Plumber", "Roofer", "Electrician", "Painter"];
+    var levelseven = ["Concrete", "Framer", "Plumber", "Roofer", "Electrician", "Painter"];
+    var levels = [levelone, leveltwo, levelthree, levelfour, levelfive, levelsix, levelseven];
+    var names = ['LevelOne', 'LevelTwo', 'LevelThree', 'LevelFour', 'LevelFive', 'LevelSix', 'LevelSeven'];
     var score = 0;
     var correct = 5;
     var result = this.get_data();
     var weather = this.data.weather;
+    
+    var block = this.data.blocked;
+
     delete result['undefined'];
 
     var hint = 'none';
@@ -302,6 +308,7 @@ class Calendar extends Phaser.Scene {
       return;
     }
 
+
     for (var i = 1; i < levels[level].length; i++) {
       var after = levels[level][i];
       var before = levels[level][i - 1]
@@ -311,9 +318,17 @@ class Calendar extends Phaser.Scene {
       }else{
         hint = before;
       }
+
+      /* -2 for each open slot
+      if(level == 1 && i == levels[level].length - 1 && result[after] == 6){
+        score -= 2;
+      }else if(level == 2 && i == levels[level].length - 1 && (result[after] == 13 || result[after] == 12)){
+        score -= (result[after] - 11) * 2;
+      }
+      */
+
       var rainy_work = weather.filter(x => Object.values(result).includes(x));
       score -= correct*rainy_work.length;
-
 
     }
 
@@ -366,8 +381,6 @@ class Calendar extends Phaser.Scene {
     this.scene.start("MainMap");
   }
 
-
-
   //box
   testMessageBox() {
 
@@ -419,5 +432,5 @@ class Calendar extends Phaser.Scene {
     //destroy the box when the button is pressed
     console.log(this.msgBox);
     this.msgBox.destroy(true);
-}
+  }
 }

@@ -37,7 +37,22 @@ class Calendar extends Phaser.Scene {
     }, this);
     var hint = this.add.image(config.width-50,50,"hint").setScale(0.3);
     hint.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.testMessageBox());
-
+    if(this.data.level>5){
+      var budget = [450,500];
+      this.add.text(0,0,"Budget: ",
+      {
+        font: "25px Arial",
+        fill: "#000",
+        padding: 10
+      });
+      this.money=this.add.text(0,30,"$"+budget[this.data.level-6],
+      {
+        font: "25px Arial",
+        fill: "#0f0",
+        padding: 10
+      })
+    }
+    this.overbudget=false;
 
     this.input.on('drop', function (pointer, gameObject, dropZone) {
       if (dropZone.getData('item') == 1) {
@@ -53,6 +68,25 @@ class Calendar extends Phaser.Scene {
         dropZone.setData('item', 1);
         dropZone.setData('jobid', gameObject.getData('jobid'));
         gameObject.setData('zoneid', dropZone.getData('zoneid'));
+        var job=gameObject.getData('jobid').toLowerCase();
+        if((job=="roofer"||job=="framer")&&self.data.level==6){
+          gameObject.getData('other').visible=false;
+          var ori_amount=parseInt(self.money.text.substr(1));
+          self.money.text="$"+(ori_amount-gameObject.getData("price"));
+          if(parseInt(self.money.text.substr(1))<0){
+            self.money.setFill("#f00");
+            self.overbudget=true;
+          }
+        }
+        if((job=="concrete"||job=="painter")&&self.data.level==7){
+          gameObject.getData('other').visible=false;
+          var ori_amount=parseInt(self.money.text.substr(1));
+          self.money.text="$"+(ori_amount-gameObject.getData("price"));
+          if(parseInt(self.money.text.substr(1))<0){
+            self.money.setFill("#f00");
+            self.overbudget=true;
+          }
+        }
       }
 
 
@@ -72,12 +106,23 @@ class Calendar extends Phaser.Scene {
       if (!dropped) {
         gameObject.x = gameObject.getData("x");//gameObject.input.dragStartX;
         gameObject.y = gameObject.getData("y");//gameObject.input.dragStartY;
+        var ori_amount=parseInt(self.money.text.substr(1));
+        self.money.text="$"+(ori_amount+gameObject.getData("price"));
+        if(parseInt(self.money.text.substr(1))>=0){
+          self.money.setFill("#0f0")
+          self.overbudget=false;
+        }
+        gameObject.getData("other").visible=true;
       }
     });
 
     this.input.on('gameobjectover', function (pointer, gameObject) {
       if(gameObject.getData('jobname')!=null){
-        self.tooltip = self.add.text(pointer.x,pointer.y,gameObject.getData('jobid'),
+        if(self.tooltip!=null){
+          self.tooltip.destroy();
+        }
+        var text=(gameObject.getData("price")==null)? gameObject.getData('jobid'): gameObject.getData('jobid')+" $"+gameObject.getData("price")
+        self.tooltip = self.add.text(pointer.x,pointer.y,text,
         {
           font: "25px Arial",
           fill: "#000",
@@ -89,6 +134,7 @@ class Calendar extends Phaser.Scene {
 
     });
     this.input.on('gameobjectout', function (pointer, gameObject) {
+      
       if(gameObject.getData('jobname')!=null){
         self.tooltip.destroy();
         //console.log(gameObject.getData('jobid'));
@@ -109,22 +155,12 @@ class Calendar extends Phaser.Scene {
     var scales = { "Concrete": 1, "Framer": 1, "Plumber": 0.2, "Roofer": 0.5, "Electrician": .5, "Painter": 0.05 };
 
     var startx = 525;
-    var starty = 600;
+    var starty = 550;
     var endx = config.width - 375;
     var width = (endx - startx) / contractor.length;
     var padding = 100;
     contractor = contractor.sort(() => Math.random() - 0.5);
     for (var i = 0; i < contractor.length; i++) {
-      /*var tmp = this.add
-        .text(startx+i*width, starty, contractor[i], {
-          fontSize: "30px",
-          fontStyles: "bold",
-          fill: "#0f0",
-          backgroundColor: "#3eaae8",
-          padding: 10
-        })
-        .setInteractive({ useHandCursor: true })
-        .setOrigin(0.5);*/
       var tmp = this.add
         .image(startx + i * width, starty, contractor[i].toLowerCase())
         .setScale(scales[contractor[i]])
@@ -136,6 +172,42 @@ class Calendar extends Phaser.Scene {
       tmp.setData("jobname", contractor[i]);
       tmp.setData("zoneid", -1);
       this.input.setDraggable(tmp);
+      if(this.data.level>5){
+        var bool=((contractor[i].toLowerCase()=="roofer"||contractor[i].toLowerCase()=="framer")&&this.data.level==6)
+                ||((contractor[i].toLowerCase()=="concrete"||contractor[i].toLowerCase()=="painter")&&this.data.level==7)
+        if(bool){
+          console.log(contractor[i]);
+          var tmp2 = this.add
+          .image(startx + i * width, starty+tmp.height*scales[contractor[i]], contractor[i].toLowerCase())
+          .setScale(scales[contractor[i]])
+          .setInteractive({ useHandCursor: true })
+          .setOrigin(0.5);
+          tmp2.setData("x", tmp2.x);
+          tmp2.setData("y", tmp2.y);
+          tmp2.setData("jobid", contractor[i]);
+          tmp2.setData("jobname", contractor[i]);
+          tmp2.setData("zoneid", -1);
+          tmp2.setData("other",tmp);
+          tmp.setData("other",tmp2);
+          this.input.setDraggable(tmp2);
+          if(contractor[i].toLowerCase()=="roofer"){
+            tmp.setData("price",300);
+            tmp2.setData("price",250);
+          }
+          if(contractor[i].toLowerCase()=="framer"){
+            tmp.setData("price",100);
+            tmp2.setData("price",200);
+          }
+          if(contractor[i].toLowerCase()=="concrete"){
+            tmp.setData("price",320);
+            tmp2.setData("price",250);
+          }
+          if(contractor[i].toLowerCase()=="painter"){
+            tmp.setData("price",200);
+            tmp2.setData("price",150);
+          }
+        }
+      }
 
     }
   }
@@ -146,11 +218,10 @@ class Calendar extends Phaser.Scene {
     var endx = config.width - 100;
     var starty = 100;
     var width = (endx - startx) / 7;
-    var height = 200;//(endy - starty) / 7;
+    var height = 200;
     var blocked = this.data.blocked;
     var rows = this.data.rows;
     var weather = this.data.weather;
-    //console.log(blocked);
 
     for (var i = 0; i < 7; i++) {
       this.add.text(startx + width * i + 50, 50, week[i], {
@@ -225,11 +296,14 @@ class Calendar extends Phaser.Scene {
       alert('Please finish all the contractors');
       return;
     }
+    if(this.overbudget){
+      alert('OVERBUDGET! Try to pick something cheaper');
+      return;
+    }
 
     for (var i = 1; i < levels[level].length; i++) {
       var after = levels[level][i];
       var before = levels[level][i - 1]
-
 
       if (result[after] > result[before]) {
         score += correct;
@@ -241,8 +315,6 @@ class Calendar extends Phaser.Scene {
 
 
     }
-
-
 
     if (result[levels[level][levels[level].length - 1]] > result[levels[level][0]]) {
       score += correct;
@@ -295,31 +367,8 @@ class Calendar extends Phaser.Scene {
     if (this.msgBox) {
         this.msgBox.destroy();
     }
-
-    var lev;
-    switch (this.data.level) {
-      case 1:
-        lev = "levelOneHint";
-        break;
-      case 2:
-        lev = "levelTwoHint";
-        break;
-      case 3:
-        lev = "levelThreeHint";
-        break;
-      case 4:
-        lev = "levelFourHint";
-        break;
-      case 5:
-        lev = "levelFiveHint";
-        break;
-      case 6:
-        lev = "levelSixHint";
-        break;
-      default:
-        lev = "levelSevenHint";
-        break;
-    }
+    var levs=["One","Two","Three","Four","Five","Six","Seven"];
+    var lev="level"+levs[this.data.level-1]+"Hint";
 
     var back = this.add.image(0, 0, lev);
     //make the close button

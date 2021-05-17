@@ -335,11 +335,13 @@ class Calendar extends Phaser.Scene {
     if (result[levels[level][levels[level].length - 1]] > result[levels[level][0]]) {
       score += correct;
     }
-    var values=Object.values(result);
-    values=values.concat(this.data.blocked).concat(weather);
-    values.sort();
-    var empty = values.length-(values[values.length-1]-values[0])-1;
-    score+=empty*2;
+    if(level==1||level==2||level==6){
+      var values=Object.values(result);
+      values=values.concat(this.data.blocked).concat(weather);
+      values.sort();
+      var empty = values.length-(values[values.length-1]-values[0])-1;
+      score+=empty*2;
+    }
     var full_point = (score == levels[level].length * correct);
     if(level==1){
       full_point = (score>= levels[level].length * correct - 2);

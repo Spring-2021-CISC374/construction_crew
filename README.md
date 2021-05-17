@@ -15,3 +15,7 @@
  - Jiamian Wang - Drag + Drop for a level to have subcontractors dragged onto a schedule + Calendar Scene with drag and drop data knowing right and wrong + level 1-2 and 4-7 implementation + scoring implementation
  - Andrew McCracken - audio for entire game + Wrong page Scene (used when player chooses an incorrect schedule)[no longer in use]
  - Matthew Pangilinan - Creation of Level with where blocked and what subcontractors + Level 3 implementation + weather implementation + reports for any issues via pop-up + Correct page Scene (used when player creates a correct schedule) [no longer in use] 
+
+The following document if a final version of our concept documentation indicating what has been indicated in the final game versus the concept document. 
+[Design Concept Final.pdf](https://github.com/Spring-2021-CISC374/construction_crew/files/6490463/Design.Concept.Final.pdf)
+

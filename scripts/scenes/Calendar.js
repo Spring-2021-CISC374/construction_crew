@@ -106,13 +106,16 @@ class Calendar extends Phaser.Scene {
       if (!dropped) {
         gameObject.x = gameObject.getData("x");//gameObject.input.dragStartX;
         gameObject.y = gameObject.getData("y");//gameObject.input.dragStartY;
-        var ori_amount=parseInt(self.money.text.substr(1));
-        self.money.text="$"+(ori_amount+gameObject.getData("price"));
-        if(parseInt(self.money.text.substr(1))>=0){
-          self.money.setFill("#0f0")
-          self.overbudget=false;
+        if(self.data.level>5){
+          var ori_amount=parseInt(self.money.text.substr(1));
+          self.money.text="$"+(ori_amount+gameObject.getData("price"));
+          if(parseInt(self.money.text.substr(1))>=0){
+            self.money.setFill("#0f0")
+            self.overbudget=false;
+          }
+          gameObject.getData("other").visible=true;
         }
-        gameObject.getData("other").visible=true;
+       
       }
     });
 
@@ -285,13 +288,11 @@ class Calendar extends Phaser.Scene {
     var score = 0;
     var correct = 5;
     var result = this.get_data();
-    console.log(result);
     var weather = this.data.weather;
     delete result['undefined'];
 
     var hint = 'none';
 
-    //console.log(result);
     if (Object.keys(result).length != levels[level].length) {
       alert('Please finish all the contractors');
       return;
@@ -319,8 +320,18 @@ class Calendar extends Phaser.Scene {
     if (result[levels[level][levels[level].length - 1]] > result[levels[level][0]]) {
       score += correct;
     }
-
+    var values=Object.values(result);
+    values=values.concat(this.data.blocked).concat(weather);
+    values.sort();
+    var empty = values.length-(values[values.length-1]-values[0])-1;
+    score+=empty*2;
     var full_point = (score == levels[level].length * correct);
+    if(level==1){
+      full_point = (score>= levels[level].length * correct - 2);
+    }
+    if(level==2||level==6){
+      full_point = (score>= levels[level].length * correct - 4);
+    }
     var high_score = localStorage.getItem(names[level]) || 0;
     if(score > high_score){
       localStorage.setItem('score',localStorage.getItem('score')-high_score+score);
@@ -394,8 +405,7 @@ class Calendar extends Phaser.Scene {
     closeButton.scale = .2
 
     closeButton.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.hideBox());
-    msgBox.setPosition(config.width / 2 - msgBox.width / 2,config.height / 2 - msgBox.height / 2)
-    msgBox.st
+    msgBox.setPosition(config.width / 2 - msgBox.width / 2,config.height / 2 - msgBox.height / 2);
     //
     //set the text in the middle of the message box
     text1.x = -text1.width/2;

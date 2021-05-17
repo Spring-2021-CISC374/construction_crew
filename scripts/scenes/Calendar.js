@@ -319,14 +319,6 @@ class Calendar extends Phaser.Scene {
         hint = before;
       }
 
-      /* -2 for each open slot
-      if(level == 1 && i == levels[level].length - 1 && result[after] == 6){
-        score -= 2;
-      }else if(level == 2 && i == levels[level].length - 1 && (result[after] == 13 || result[after] == 12)){
-        score -= (result[after] - 11) * 2;
-      }
-      */
-
       var rainy_work = weather.filter(x => Object.values(result).includes(x));
       score -= correct*rainy_work.length;
 
@@ -338,7 +330,18 @@ class Calendar extends Phaser.Scene {
     if(level==1||level==2||level==6){
       var values=Object.values(result);
       values=values.concat(this.data.blocked).concat(weather);
-      values.sort();
+      if(this.data.rows==2){
+        weather.forEach(element => {
+          values=values.concat(element+7);
+        });
+        this.data.blocked.forEach(element => {
+          values=values.concat(element+7);
+        });
+      }
+      values.sort(function(a, b) {
+        return a - b;
+    });
+      console.log(values);
       var empty = values.length-(values[values.length-1]-values[0])-1;
       score+=empty*2;
     }

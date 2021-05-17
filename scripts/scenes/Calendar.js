@@ -207,11 +207,11 @@ class Calendar extends Phaser.Scene {
     level -= 1;
     var levelone = ["Roofer", "Electrician", "Painter"];
     var leveltwo = ["Plumber", "Roofer", "Electrician", "Painter"];
-    var levelthree = ["Concrete", "Farmer", "Plumber", "Roofer", "Electrician", "Painter"];
-    var levelfour = ["Concrete", "Farmer", "Plumber", "Roofer", "Electrician", "Painter"];
-    var levelfive = ["Concrete", "Farmer", "Plumber", "Roofer", "Electrician", "Painter"];
-    var levelsix = ["Concrete", "Farmer", "Plumber", "Roofer", "Electrician", "Painter"];
-    var levelseven = ["Concrete", "Farmer", "Plumber", "Roofer", "Electrician", "Painter"];
+    var levelthree = ["Concrete", "Framer", "Plumber", "Roofer", "Electrician", "Painter"];
+    var levelfour = ["Concrete", "Framer", "Plumber", "Roofer", "Electrician", "Painter"];
+    var levelfive = ["Concrete", "Framer", "Plumber", "Roofer", "Electrician", "Painter"];
+    var levelsix = ["Concrete", "Framer", "Plumber", "Roofer", "Electrician", "Painter"];
+    var levelseven = ["Concrete", "Framer", "Plumber", "Roofer", "Electrician", "Painter"];
     var levels = [levelone, leveltwo, levelthree, levelfour, levelfive, levelsix, levelseven];
     var names = ['LevelOne', 'LevelTwo', 'LevelThree', 'LevelFour', 'LevelFive', 'LevelSix', 'LevelSeven'];
     var score = 0;

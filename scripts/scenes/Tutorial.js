@@ -30,9 +30,9 @@ class Tutorial extends Phaser.Scene {
       fill: "black"
     });
 
-    const farmer = this.add.image(config.width/2 - 275, config.height / 2, "farmer");
+    const framer = this.add.image(config.width/2 - 275, config.height / 2, "framer");
 
-    this.add.text(config.width/2 - 325, config.height / 2 + 75, "farmer", {
+    this.add.text(config.width/2 - 325, config.height / 2 + 75, "framer", {
       font: "20px Arial",
       fill: "black"
     });

@@ -35,6 +35,13 @@ class Calendar extends Phaser.Scene {
     this.input.on("dragstart", function (pointer, gameObject) {
       this.children.bringToTop(gameObject);
     }, this);
+    /*if(level==6){
+      this.budget_arr=["roofer","framer"];
+    }
+    if(level==7){
+      this.budget_arr=["concrete","painter"];
+    }*/
+    this.cost_arr=[];
     var hint = this.add.image(config.width-50,50,"hint").setScale(0.3);
     hint.setInteractive({ useHandCursor: true }).on('pointerdown', () => this.testMessageBox());
     if(this.data.level>5){
@@ -68,8 +75,16 @@ class Calendar extends Phaser.Scene {
         dropZone.setData('item', 1);
         dropZone.setData('jobid', gameObject.getData('jobid'));
         gameObject.setData('zoneid', dropZone.getData('zoneid'));
-        var job=gameObject.getData('jobid').toLowerCase();
-        if((job=="roofer"||job=="framer")&&self.data.level==6){
+      }
+
+
+    });
+
+    this.input.on("dragstart", function (pointer, gameObject, dragX, dragY) {
+      var job=gameObject.getData('jobid').toLowerCase();
+      if((job=="roofer"||job=="framer")&&self.data.level==6){
+        if(!self.cost_arr.includes(job)){
+          self.cost_arr.push(job);
           gameObject.getData('other').visible=false;
           var ori_amount=parseInt(self.money.text.substr(1));
           self.money.text="$"+(ori_amount-gameObject.getData("price"));
@@ -78,7 +93,11 @@ class Calendar extends Phaser.Scene {
             self.overbudget=true;
           }
         }
-        if((job=="concrete"||job=="painter")&&self.data.level==7){
+        
+      }
+      if((job=="concrete"||job=="painter")&&self.data.level==7){
+        if(!self.cost_arr.includes(job)){
+          self.cost_arr.push(job);
           gameObject.getData('other').visible=false;
           var ori_amount=parseInt(self.money.text.substr(1));
           self.money.text="$"+(ori_amount-gameObject.getData("price"));
@@ -88,8 +107,6 @@ class Calendar extends Phaser.Scene {
           }
         }
       }
-
-
     });
 
     this.input.on("drag", function (pointer, gameObject, dragX, dragY) {
@@ -104,9 +121,16 @@ class Calendar extends Phaser.Scene {
 
     this.input.on("dragend", function (pointer, gameObject, dropped) {
       if (!dropped) {
-        gameObject.x = gameObject.getData("x");//gameObject.input.dragStartX;
-        gameObject.y = gameObject.getData("y");//gameObject.input.dragStartY;
-        if(self.data.level>5){
+        gameObject.x = gameObject.getData("x");
+        gameObject.y = gameObject.getData("y");
+        var job=gameObject.getData('jobid').toLowerCase();
+        if(self.data.level>5&&self.cost_arr.includes(job)){
+          for( var i = 0; i < self.cost_arr.length; i++){ 
+            if ( self.cost_arr[i] === job) { 
+              self.cost_arr.splice(i, 1); 
+            }
+          }
+          console.log(self.cost_arr);
           var ori_amount=parseInt(self.money.text.substr(1));
           self.money.text="$"+(ori_amount+gameObject.getData("price"));
           if(parseInt(self.money.text.substr(1))>=0){
